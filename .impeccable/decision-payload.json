@@ -1,0 +1,157 @@
+{
+ "title": "Choose Righton's visual world",
+ "question": "Every option keeps your two pins: the deep-green glow background and the Afriwork page structure. They differ in the idea the page is built around. Keep the roll, take an alternate, or re-roll.",
+ "options": [
+  {
+   "id": "assigned",
+   "label": "Three Rounds",
+   "kicker": "THE ROLL",
+   "lineage": "the Ethiopian coffee ceremony's three pours: Abol, Tona, Bereka",
+   "thesis": "Hiring through Righton as a hosted ritual in three rounds: you apply, Righton screens and introduces, the client hires.",
+   "palette": [
+    "#0b2e22",
+    "#1f5e47",
+    "#9fd0b8",
+    "#f5f2ea",
+    "#c8893f"
+   ],
+   "materials": [
+    "deep-green radial glow (pinned)",
+    "warm porcelain-white cards",
+    "a single roasted-copper ink reserved for Apply"
+   ],
+   "viewport": "Afriwork structure on the green glow: announcement bar (Telegram), nav, centred headline with Find work / Hire through Righton, and under it a live sample vacancy (Ref RT-0142, closes in 12 days) whose three round markers fill in sequence.",
+   "risk": "If the ritual is taken too literally (cups, pots, beans) it reads folkloric instead of professional. It has to live in the structure and numbering, not in illustrations.",
+   "raised": [
+    {
+     "from": "challenger-teletext",
+     "raise": "Every vacancy carries a reference number (RT-0142) that can be typed straight into search, the way teletext pages are keyed by number."
+    },
+    {
+     "from": "challenger-keycap",
+     "raise": "One action colour, roasted copper, is reserved for Apply alone. Everything else is green and white."
+    },
+    {
+     "from": "challenger-brine",
+     "raise": "Every listing is labelled with the date posted and a countdown in days to its deadline, like a dated jar label."
+    }
+   ]
+  },
+  {
+   "id": "model-pick",
+   "label": "Vacancy Announcement",
+   "kicker": "IMPECCABLE’S PICK",
+   "lineage": "the boxed vacancy notices in The Reporter and Addis Zemen classifieds",
+   "thesis": "Every opening typeset as the vacancy notice every Ethiopian job seeker already knows how to read.",
+   "palette": [
+    "#0b2e22",
+    "#1f5e47",
+    "#9fd0b8",
+    "#ffffff",
+    "#111814"
+   ],
+   "materials": [
+    "deep-green radial glow (pinned)",
+    "crisp white notice cards with ruled fields",
+    "black ink typesetting"
+   ],
+   "viewport": "Afriwork structure on the green glow: centred headline and two actions, with a fanned stack of three typeset vacancy notices rising from the arc (Position, Ref No., Qualification, Experience, Salary, Deadline).",
+   "risk": "Also the direction most runs would land on, and it's the closest to a print classifieds page. It's familiar, which is both its strength and its ceiling."
+  },
+  {
+   "id": "challenger-teletext",
+   "label": "Teletext Service",
+   "verdict": "declined",
+   "lineage": "broadcast teletext magazines",
+   "thesis": "Vacancies as numbered broadcast pages on a black grid.",
+   "palette": [
+    "#000000",
+    "#ffff00",
+    "#00ffff",
+    "#ffffff"
+   ],
+   "materials": [
+    "block mosaic",
+    "bitmap type"
+   ],
+   "viewport": "A P100 index page listing vacancies as numbered rows.",
+   "risk": "Fights the pinned green glow and the request for a sleek, professional look.",
+   "case": "Loses on both axes: job seekers in Addis don't recognise teletext, and it contradicts the pinned background.",
+   "kept": "Jobs addressed by a typeable reference number.",
+   "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp"
+  },
+  {
+   "id": "challenger-keycap",
+   "label": "Creator Hardware Bench",
+   "verdict": "declined",
+   "lineage": "desk instruments with keycaps and one orange key",
+   "thesis": "The portal as a tactile instrument with one orange action key.",
+   "palette": [
+    "#2b2f33",
+    "#d9d4c7",
+    "#ff6a13",
+    "#ffb347"
+   ],
+   "materials": [
+    "keycap plastic",
+    "gunmetal"
+   ],
+   "viewport": "A keycap grid of job categories with an orange Apply key.",
+   "risk": "A gadget aesthetic that clashes with the pinned green glow.",
+   "case": "Loses on both axes: the audience doesn't identify with it, and it says nothing about recruiting.",
+   "kept": "A single colour reserved for the one action that matters.",
+   "hero": "https://impeccable.style/worlds/cards/design-canon-creator-hardware-bench-hero.webp"
+  },
+  {
+   "id": "challenger-brine",
+   "label": "Brine Calendar",
+   "verdict": "declined",
+   "lineage": "seasonal pickling jars with dated labels",
+   "thesis": "Openings as dated jars maturing on a shelf.",
+   "palette": [
+    "#e9efe6",
+    "#e8735a",
+    "#9b1f3f",
+    "#7da84a"
+   ],
+   "materials": [
+    "jar glass",
+    "kraft labels"
+   ],
+   "viewport": "A shelf of labelled vacancy jars.",
+   "risk": "Playful and food-coded, the opposite of the professional brief.",
+   "case": "Loses on both axes: off-subject, and it softens trust.",
+   "kept": "Every item banded with its dates and a day count.",
+   "hero": "https://impeccable.style/worlds/cards/food-fermentation-culinary-theater-pickling-brine-calendar-hero.webp"
+  }
+ ],
+ "reroll": {
+  "registers": [
+   "safer",
+   "bolder"
+  ]
+ },
+ "buildPath": {
+  "value": "code"
+ },
+ "canon": true,
+ "canonCard": {
+  "label": "The category standard",
+  "thesis": "Afriwork's structure on your green glow, played straight and executed impeccably.",
+  "palette": [
+   "#0b2e22",
+   "#1f5e47",
+   "#9fd0b8",
+   "#ffffff"
+  ],
+  "materials": [
+   "green radial glow",
+   "clean sans headline",
+   "pill buttons",
+   "floating info chips"
+  ],
+  "viewport": "Announcement bar, nav, big two-line headline with two pill buttons, floating chips and a sector strip in place of employer logos.",
+  "risk": "Indistinguishable from every other job board by design."
+ },
+ "steer": true
+}

@@ -1,0 +1,714 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T20:24:56.102Z",
+  "title": "Design System: Righton",
+  "extensions": {
+    "colorMeta": {
+      "blue": {
+        "role": "primary",
+        "displayName": "Board Blue",
+        "canonical": "oklch(32.4% 0.141 263.9)",
+        "tonalRamp": [
+          "#030045",
+          "#011666",
+          "#173889",
+          "#3358ac",
+          "#547cd4",
+          "#77a2fc",
+          "#9bc9ff",
+          "#beedff"
+        ]
+      },
+      "blue-deep": {
+        "role": "primary",
+        "displayName": "Board Blue Deep",
+        "canonical": "oklch(24.1% 0.098 263.8)",
+        "tonalRamp": [
+          "#000233",
+          "#0a1f52",
+          "#243d73",
+          "#415c95",
+          "#627fbb",
+          "#85a4e2",
+          "#aacaff",
+          "#cdefff"
+        ]
+      },
+      "blue-row": {
+        "role": "primary",
+        "displayName": "Board Row",
+        "canonical": "oklch(27.6% 0.115 263.7)",
+        "tonalRamp": [
+          "#00003a",
+          "#051c5a",
+          "#1f3b7b",
+          "#3b5b9e",
+          "#5c7ec5",
+          "#7fa3ed",
+          "#a4caff",
+          "#c7eeff"
+        ]
+      },
+      "blue-hi": {
+        "role": "primary",
+        "displayName": "Board Blue Lit",
+        "canonical": "oklch(38.9% 0.171 264.1)",
+        "tonalRamp": [
+          "#05004c",
+          "#000774",
+          "#0d3298",
+          "#2a54bc",
+          "#4a7ae5",
+          "#6da0ff",
+          "#91c7ff",
+          "#b9ecff"
+        ]
+      },
+      "signal": {
+        "role": "secondary",
+        "displayName": "Signal Blue",
+        "canonical": "oklch(57.5% 0.206 265.0)",
+        "tonalRamp": [
+          "#0a0054",
+          "#04007d",
+          "#0a28a7",
+          "#224dcf",
+          "#4274f9",
+          "#659cff",
+          "#8ec5ff",
+          "#b5ebff"
+        ]
+      },
+      "sky": {
+        "role": "secondary",
+        "displayName": "Sky",
+        "canonical": "oklch(89.6% 0.050 269.3)",
+        "tonalRamp": [
+          "#040920",
+          "#1a223c",
+          "#353f5b",
+          "#525d7b",
+          "#747f9f",
+          "#98a4c5",
+          "#bdcaec",
+          "#e1eeff"
+        ]
+      },
+      "sky-soft": {
+        "role": "secondary",
+        "displayName": "Sky Soft",
+        "canonical": "oklch(94.9% 0.020 267.3)",
+        "tonalRamp": [
+          "#080b14",
+          "#20242e",
+          "#3b404b",
+          "#595e69",
+          "#7b808d",
+          "#9fa5b2",
+          "#c5cad8",
+          "#e8eefc"
+        ]
+      },
+      "on-blue": {
+        "role": "neutral",
+        "displayName": "On-Blue",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "on-blue-2": {
+        "role": "neutral",
+        "displayName": "On-Blue 2",
+        "canonical": "oklch(86.1% 0.048 268.4)",
+        "tonalRamp": [
+          "#04091f",
+          "#1a233b",
+          "#353f59",
+          "#525d79",
+          "#74809e",
+          "#98a4c4",
+          "#bdcaeb",
+          "#e1eeff"
+        ]
+      },
+      "on-blue-3": {
+        "role": "neutral",
+        "displayName": "On-Blue 3",
+        "canonical": "oklch(72.8% 0.073 267.8)",
+        "tonalRamp": [
+          "#020629",
+          "#152147",
+          "#2f3e66",
+          "#4c5c87",
+          "#6d7fad",
+          "#91a4d3",
+          "#b6cafb",
+          "#d9eeff"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Terminal White",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "grey": {
+        "role": "neutral",
+        "displayName": "Concourse Grey",
+        "canonical": "oklch(95.7% 0.007 260.7)",
+        "tonalRamp": [
+          "#090b0e",
+          "#222428",
+          "#3d4044",
+          "#5b5e62",
+          "#7e8085",
+          "#a2a5a9",
+          "#c8cbcf",
+          "#eceff4"
+        ]
+      },
+      "grey-2": {
+        "role": "neutral",
+        "displayName": "Concourse Grey 2",
+        "canonical": "oklch(97.8% 0.005 258.3)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232426",
+          "#3e4042",
+          "#5c5e60",
+          "#7e8083",
+          "#a3a5a7",
+          "#c9cbcd",
+          "#edeff1"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(90.2% 0.016 262.7)",
+        "tonalRamp": [
+          "#080b12",
+          "#20242c",
+          "#3b4049",
+          "#595e67",
+          "#7b808a",
+          "#9fa5af",
+          "#c5cbd6",
+          "#e9effa"
+        ]
+      },
+      "line-2": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "oklch(81.5% 0.029 263.4)",
+        "tonalRamp": [
+          "#050b17",
+          "#1d2432",
+          "#38404f",
+          "#555e6e",
+          "#778092",
+          "#9ba5b7",
+          "#c1cbde",
+          "#e5efff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(20.9% 0.060 264.8)",
+        "tonalRamp": [
+          "#020824",
+          "#152341",
+          "#303f60",
+          "#4d5d80",
+          "#6f80a5",
+          "#92a5cb",
+          "#b7cbf3",
+          "#dbefff"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "oklch(39.5% 0.047 265.2)",
+        "tonalRamp": [
+          "#03091f",
+          "#19233b",
+          "#343f59",
+          "#515d79",
+          "#73809d",
+          "#96a5c3",
+          "#bccbea",
+          "#dfefff"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "oklch(51.0% 0.044 265.5)",
+        "tonalRamp": [
+          "#040a1d",
+          "#1a2339",
+          "#343f57",
+          "#525d77",
+          "#74809b",
+          "#97a5c1",
+          "#bdcbe8",
+          "#e0efff"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "Final-Call Amber",
+        "canonical": "oklch(81.1% 0.153 82.1)",
+        "tonalRamp": [
+          "#260000",
+          "#461000",
+          "#663000",
+          "#875000",
+          "#ad7400",
+          "#d49900",
+          "#fcbf3f",
+          "#ffe46f"
+        ]
+      },
+      "amber-soft": {
+        "role": "tertiary",
+        "displayName": "Amber Soft",
+        "canonical": "oklch(96.0% 0.042 89.4)",
+        "tonalRamp": [
+          "#120a00",
+          "#2c2309",
+          "#493f25",
+          "#675d42",
+          "#8a7f63",
+          "#afa487",
+          "#d5caac",
+          "#faeecf"
+        ]
+      },
+      "amber-ink": {
+        "role": "tertiary",
+        "displayName": "Amber Ink",
+        "canonical": "oklch(42.6% 0.089 76.7)",
+        "tonalRamp": [
+          "#1e0200",
+          "#3b1b00",
+          "#5a3800",
+          "#7a5618",
+          "#9e793e",
+          "#c49d63",
+          "#ecc388",
+          "#ffe7ab"
+        ]
+      },
+      "amber-final-ink": {
+        "role": "tertiary",
+        "displayName": "Amber Final Ink",
+        "canonical": "oklch(23.8% 0.049 82.5)",
+        "tonalRamp": [
+          "#150800",
+          "#302104",
+          "#4d3d20",
+          "#6b5b3d",
+          "#8f7e5f",
+          "#b4a282",
+          "#dac8a7",
+          "#ffecca"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Danger",
+        "canonical": "oklch(51.4% 0.170 31.4)",
+        "tonalRamp": [
+          "#360000",
+          "#5e0000",
+          "#830000",
+          "#a82512",
+          "#d24f3a",
+          "#fd755f",
+          "#ff9c84",
+          "#ffc5ac"
+        ]
+      },
+      "flap-hinge": {
+        "role": "neutral",
+        "displayName": "Flap Hinge",
+        "canonical": "rgb(0 0 0 / 0.45)",
+        "tonalRamp": [
+          "rgb(0 0 0 / 0.9)",
+          "rgb(0 0 0 / 0.75)",
+          "rgb(0 0 0 / 0.6)",
+          "rgb(0 0 0 / 0.45)",
+          "rgb(0 0 0 / 0.35)",
+          "rgb(0 0 0 / 0.25)",
+          "rgb(0 0 0 / 0.15)",
+          "rgb(0 0 0 / 0.06)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Board Blue sequence numbers in ruled step lists."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles; white variant on blue regions."
+      },
+      "title-lg": {
+        "displayName": "Title Large",
+        "purpose": "Job-detail and apply-drawer titles; signage panel sector names."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Vacancy titles, sector names, step titles."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Hero and section introductions, max 44ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading text, in ink-2."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Sentence-case field labels above kiosk and filter values."
+      },
+      "board-head": {
+        "displayName": "Board Head",
+        "purpose": "Uppercase column heads on the Openings board only."
+      },
+      "cell": {
+        "displayName": "Cell",
+        "purpose": "Mono tabular machine facts: refs, times, counts, days, phone numbers."
+      },
+      "status": {
+        "displayName": "Status",
+        "purpose": "Uppercase mono status tags."
+      },
+      "display-mobile": {
+        "displayName": "Display Mobile",
+        "purpose": "Hero headline under 720px."
+      },
+      "signage": {
+        "displayName": "Signage",
+        "purpose": "Sector name on the blue signage panel."
+      },
+      "wordmark-footer": {
+        "displayName": "Wordmark Footer",
+        "purpose": "Wordmark on the blue-deep footer."
+      },
+      "drawer-title": {
+        "displayName": "Drawer Title",
+        "purpose": "Apply-drawer title."
+      },
+      "panel-title-lg": {
+        "displayName": "Panel Title Large",
+        "purpose": "Alerts panel title and the Vacancy received confirmation."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Nav wordmark."
+      },
+      "panel-title": {
+        "displayName": "Panel Title",
+        "purpose": "Employer Vacancy request panel title."
+      },
+      "directory": {
+        "displayName": "Directory",
+        "purpose": "Sector names in the sector directory."
+      },
+      "board-title": {
+        "displayName": "Board Title",
+        "purpose": "Openings title in the board header strip."
+      },
+      "title-md": {
+        "displayName": "Title Medium",
+        "purpose": "Step titles and the empty-state title."
+      },
+      "sheet-link": {
+        "displayName": "Sheet Link",
+        "purpose": "Ruled links in the mobile nav sheet."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Section heads inside the job detail."
+      },
+      "ui": {
+        "displayName": "UI",
+        "purpose": "Nav links, filter values, list salary, footer note."
+      },
+      "ui-sm": {
+        "displayName": "UI Small",
+        "purpose": "Sort tabs and the organisation line under a vacancy title."
+      },
+      "action-sm": {
+        "displayName": "Action Small",
+        "purpose": "Small buttons, board footer link, Clear filters, photo captions."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Days left on a row and contact channel labels."
+      },
+      "cell-lg": {
+        "displayName": "Cell Large",
+        "purpose": "Board clock and the solid count cell."
+      },
+      "cell-xl": {
+        "displayName": "Cell XL",
+        "purpose": "Count cell on the sector signage panel."
+      },
+      "cell-count": {
+        "displayName": "Cell Count",
+        "purpose": "Flap-tiled results count on the vacancy board."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hung-board",
+        "value": "0 30px 60px -20px rgb(6 26 77 / 0.55)",
+        "purpose": "Openings board hung over the hero photograph."
+      },
+      {
+        "name": "drawer",
+        "value": "-30px 0 80px -30px rgb(6 26 77 / 0.6)",
+        "purpose": "Apply drawer over a blue-deep 60% backdrop."
+      },
+      {
+        "name": "focus-rule",
+        "value": "inset 0 -2px 0 var(--blue)",
+        "purpose": "Focused kiosk, filter and form fields."
+      },
+      {
+        "name": "flap-hinge",
+        "value": "1px line, rgb(0 0 0 / 0.45), top 50%",
+        "purpose": "Hinge line across each split-flap cell (a ::after rule, not a box-shadow)."
+      },
+      {
+        "name": "outline-ring",
+        "value": "inset 0 0 0 1px var(--line-2)",
+        "purpose": "Outlined OPEN status tags; white at 22-35% on blue."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions, underline wipes, drawer and sheet entrances."
+      },
+      {
+        "name": "state",
+        "value": "0.2s",
+        "purpose": "Colour and border transitions on buttons and fields."
+      },
+      {
+        "name": "wipe",
+        "value": "0.3s",
+        "purpose": "Nav and sort-tab underline wipe, arrow nudge, directory name shift."
+      },
+      {
+        "name": "drawer-in",
+        "value": "0.45s",
+        "purpose": "Apply drawer slide-in (40px); bottom sheet under 720px."
+      },
+      {
+        "name": "flap-cell",
+        "value": "70ms per glyph, 420ms first spin, 220ms on change",
+        "purpose": "Split-flap settle in tiled cells (Ref, Closes, result count)."
+      },
+      {
+        "name": "flap-text",
+        "value": "26ms per glyph",
+        "purpose": "Untiled flap for board position, city and status text."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "All animation and transition collapsed; flap renders final text."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "filters-wrap",
+        "value": "1180px"
+      },
+      {
+        "name": "single-column",
+        "value": "1023px"
+      },
+      {
+        "name": "nav-sheet",
+        "value": "900px"
+      },
+      {
+        "name": "mobile",
+        "value": "720px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Board Blue action; the main call to action on white.",
+      "html": "<button class=\"ds-btn-primary\">Find work <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:1.5px solid transparent;border-radius:var(--r,4px);background:var(--blue,#0b2a7a);color:#fff;font-family:var(--f-text,'Red Hat Text',sans-serif);font-weight:700;font-size:.975rem;cursor:pointer;transition:background-color .2s cubic-bezier(.16,1,.3,1)}.ds-btn-primary svg{transition:transform .3s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:var(--blue-hi,#12389e)}.ds-btn-primary:hover svg{transform:translateX(3px)}.ds-btn-primary:focus-visible{outline:2px solid var(--signal,#3b6cf0);outline-offset:2px}"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary action: 1.5px ink outline that fills ink on hover.",
+      "html": "<button class=\"ds-btn-line\">Hire through Righton</button>",
+      "css": ".ds-btn-line{display:inline-flex;align-items:center;height:48px;padding:0 22px;border:1.5px solid var(--ink,#0a1633);border-radius:var(--r,4px);background:transparent;color:var(--ink,#0a1633);font-family:var(--f-text,'Red Hat Text',sans-serif);font-weight:700;font-size:.975rem;cursor:pointer;transition:background-color .2s,color .2s}.ds-btn-line:hover{background:var(--ink,#0a1633);color:#fff}.ds-btn-line:focus-visible{outline:2px solid var(--signal,#3b6cf0);outline-offset:2px}"
+    },
+    {
+      "name": "White Button",
+      "kind": "button",
+      "refersTo": "button-white",
+      "description": "Primary action on Board Blue regions.",
+      "html": "<div style=\"background:#0b2a7a;padding:24px\"><button class=\"ds-btn-white\">Apply now <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button></div>",
+      "css": ".ds-btn-white{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:0;border-radius:var(--r,4px);background:#fff;color:var(--blue,#0b2a7a);font-family:var(--f-text,'Red Hat Text',sans-serif);font-weight:700;font-size:.975rem;cursor:pointer;transition:background-color .2s}.ds-btn-white:hover{background:var(--sky-soft,#e8eefc)}.ds-btn-white:focus-visible{outline:2px solid var(--signal,#3b6cf0);outline-offset:2px}"
+    },
+    {
+      "name": "Kiosk Search",
+      "kind": "input",
+      "refersTo": "kiosk-go",
+      "description": "Square labelled search strip ending in a solid blue Search block.",
+      "html": "<form class=\"ds-kiosk\" onsubmit=\"return false\"><label class=\"ds-kiosk__f\"><span>What</span><input placeholder=\"Job title, skill or Ref\"></label><label class=\"ds-kiosk__f\"><span>Where</span><input placeholder=\"All cities\"></label><button class=\"ds-kiosk__go\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg>Search</button></form>",
+      "css": ".ds-kiosk{display:grid;grid-template-columns:2fr 1fr auto;border:1.5px solid var(--ink,#0a1633);border-radius:var(--r,4px);background:#fff;font-family:var(--f-text,'Red Hat Text',sans-serif)}.ds-kiosk__f{display:grid;gap:2px;padding:12px 20px;border-right:1px solid var(--line,#d9dfea)}.ds-kiosk__f span{font-size:.75rem;font-weight:700;color:var(--ink-3,#5a6680)}.ds-kiosk__f input{border:0;padding:0;background:transparent;font:inherit;font-size:1.05rem;font-weight:600;color:var(--ink,#0a1633);outline:none}.ds-kiosk__f input::placeholder{font-weight:500;color:var(--ink-3,#5a6680)}.ds-kiosk__f:focus-within{background:var(--grey-2,#f6f8fb);box-shadow:inset 0 -2px 0 var(--blue,#0b2a7a)}.ds-kiosk__go{display:inline-flex;align-items:center;gap:10px;min-height:68px;padding:0 36px;border:0;border-radius:0 2px 2px 0;background:var(--blue,#0b2a7a);color:#fff;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;transition:background-color .2s}.ds-kiosk__go:hover{background:var(--blue-hi,#12389e)}.ds-kiosk__go:focus-visible{outline:2px solid var(--signal,#3b6cf0);outline-offset:2px}"
+    },
+    {
+      "name": "Form Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Hairline-stroked field; focus moves the stroke to blue and adds an inset bottom rule.",
+      "html": "<label class=\"ds-field\"><span>Phone</span><input placeholder=\"0911 234 567\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;font-family:var(--f-text,'Red Hat Text',sans-serif)}.ds-field span{font-size:.875rem;font-weight:700;color:var(--ink,#0a1633)}.ds-field input{min-height:50px;padding:12px 14px;border:1px solid var(--line-2,#b9c3d6);border-radius:var(--r,4px);background:#fff;font:inherit;font-size:1rem;transition:border-color .2s,box-shadow .2s}.ds-field input::placeholder{color:var(--ink-3,#5a6680)}.ds-field input:hover{border-color:var(--ink-3,#5a6680)}.ds-field input:focus{outline:none;border-color:var(--blue,#0b2a7a);box-shadow:inset 0 -2px 0 var(--blue,#0b2a7a)}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "White sticky bar on a hairline; links get a blue underline wipe on hover.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav__brand\">Righton</span><a href=\"#\">Find jobs</a><a href=\"#\">Sectors</a><a href=\"#\">How to apply</a><a href=\"#\" class=\"ds-nav__cta\">Hire through Righton</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:32px;height:72px;padding:0 24px;background:#fff;border-bottom:1px solid var(--line,#d9dfea);font-family:var(--f-text,'Red Hat Text',sans-serif)}.ds-nav__brand{margin-right:auto;font-family:var(--f-display,'Red Hat Display',sans-serif);font-weight:800;font-size:1.55rem;letter-spacing:-.04em;color:var(--blue,#0b2a7a)}.ds-nav a{position:relative;padding:8px 0;font-weight:600;font-size:.95rem;color:var(--ink-2,#3a4660);text-decoration:none}.ds-nav a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--blue,#0b2a7a);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,1,.3,1)}.ds-nav a:hover{color:var(--ink,#0a1633)}.ds-nav a:hover::after{transform:scaleX(1)}.ds-nav a.ds-nav__cta{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1.5px solid var(--ink,#0a1633);border-radius:4px;color:var(--ink,#0a1633);font-weight:700}.ds-nav a.ds-nav__cta::after{display:none}.ds-nav a.ds-nav__cta:hover{background:var(--ink,#0a1633);color:#fff}.ds-nav a:focus-visible{outline:2px solid var(--signal,#3b6cf0);outline-offset:2px}"
+    },
+    {
+      "name": "Status Tags",
+      "kind": "chip",
+      "refersTo": "status-new",
+      "description": "Square, mono, uppercase statuses; amber only for Closing and Final call.",
+      "html": "<div class=\"ds-tags\"><span class=\"ds-st ds-st--new\">New</span><span class=\"ds-st ds-st--open\">Open</span><span class=\"ds-st ds-st--closing\">Closing</span><span class=\"ds-st ds-st--final\">Final call</span></div>",
+      "css": ".ds-tags{display:flex;gap:10px}.ds-st{display:inline-block;padding:2px 7px;border-radius:2px;font-family:var(--f-mono,'Red Hat Mono',monospace);font-size:.72rem;font-weight:600;text-transform:uppercase;white-space:nowrap}.ds-st--new{background:var(--sky-soft,#e8eefc);color:var(--blue,#0b2a7a)}.ds-st--open{box-shadow:inset 0 0 0 1px var(--line-2,#b9c3d6);color:var(--ink-2,#3a4660)}.ds-st--closing{background:var(--amber-soft,#fdf1d2);color:var(--amber-ink,#6a4700)}.ds-st--final{background:var(--amber,#f2b632);color:#2a1c00}"
+    },
+    {
+      "name": "Vacancy Row",
+      "kind": "card",
+      "description": "Flat ruled list row with mono Ref; the selected row turns solid Board Blue.",
+      "html": "<ul class=\"ds-rows\"><li><button class=\"ds-row\"><span class=\"ds-row__ref\">RT-1042</span><span><span class=\"ds-row__t\">Warehouse Supervisor</span><span class=\"ds-row__o\">Logistics company · Addis Ababa</span></span><span class=\"ds-row__s\">ETB 18,000</span></button></li><li><button class=\"ds-row is-on\"><span class=\"ds-row__ref\">RT-1039</span><span><span class=\"ds-row__t\">Senior Accountant</span><span class=\"ds-row__o\">Manufacturer · Adama</span></span><span class=\"ds-row__s\">ETB 32,000</span></button></li></ul>",
+      "css": ".ds-rows{margin:0;padding:0;list-style:none;border-top:1px solid var(--line-2,#b9c3d6);background:#fff;font-family:var(--f-text,'Red Hat Text',sans-serif)}.ds-rows li{border-bottom:1px solid var(--line,#d9dfea)}.ds-row{display:grid;grid-template-columns:76px 1fr auto;gap:6px 20px;width:100%;padding:20px;border:0;background:transparent;text-align:left;cursor:pointer;transition:background-color .15s}.ds-row:hover{background:var(--grey-2,#f6f8fb)}.ds-row:focus-visible{outline:2px solid var(--signal,#3b6cf0);outline-offset:-2px}.ds-row__ref{padding-top:4px;font-family:var(--f-mono,'Red Hat Mono',monospace);font-size:.8rem;font-variant-numeric:tabular-nums;color:var(--ink-3,#5a6680)}.ds-row__t{display:block;font-family:var(--f-display,'Red Hat Display',sans-serif);font-size:1.2rem;font-weight:700;letter-spacing:-.015em;color:var(--ink,#0a1633)}.ds-row__o{font-size:.925rem;color:var(--ink-2,#3a4660)}.ds-row__s{font-weight:700;font-size:.95rem;color:var(--ink,#0a1633)}.ds-row.is-on{background:var(--blue,#0b2a7a)}.ds-row.is-on:hover{background:var(--blue,#0b2a7a)}.ds-row.is-on .ds-row__t,.ds-row.is-on .ds-row__s{color:#fff}.ds-row.is-on .ds-row__o{color:var(--on-blue-2,#c4d1f2)}.ds-row.is-on .ds-row__ref{color:var(--on-blue-3,#93a6d6)}"
+    },
+    {
+      "name": "Openings Board with Flap Cells",
+      "kind": "custom",
+      "refersTo": "flap-cell",
+      "description": "Signature flight-information board: blue-deep table, mono uppercase cells, hinged flap tiles for Ref and Closes.",
+      "html": "<div class=\"ds-fids\"><div class=\"ds-fids__h\"><b>Openings</b><span>Addis Ababa <i>14:05</i></span></div><table><thead><tr><th>Ref</th><th>Position</th><th>Closes</th><th>Status</th></tr></thead><tbody><tr><td><span class=\"ds-flap\"><span>1</span><span>0</span><span>4</span><span>2</span></span></td><td>WAREHOUSE SUPERVISOR</td><td><span class=\"ds-flap\"><span>1</span><span>2</span></span></td><td><span class=\"ds-fst ds-fst--new\">NEW</span></td></tr><tr><td><span class=\"ds-flap\"><span>1</span><span>0</span><span>3</span><span>9</span></span></td><td>SENIOR ACCOUNTANT</td><td><span class=\"ds-flap\"><span>0</span><span>2</span></span></td><td><span class=\"ds-fst ds-fst--final\">FINAL CALL</span></td></tr></tbody></table></div>",
+      "css": ".ds-fids{background:var(--blue-deep,#061a4d);color:#fff;font-family:var(--f-text,'Red Hat Text',sans-serif);box-shadow:0 30px 60px -20px rgb(6 26 77/.55)}.ds-fids__h{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--blue,#0b2a7a)}.ds-fids__h b{font-family:var(--f-display,'Red Hat Display',sans-serif);font-size:1.4rem;letter-spacing:-.02em}.ds-fids__h span{font-size:.85rem;font-weight:600;color:var(--on-blue-2,#c4d1f2)}.ds-fids__h i{margin-left:10px;font-style:normal;font-family:var(--f-mono,'Red Hat Mono',monospace);font-size:1.1rem;color:#fff}.ds-fids table{width:100%;border-collapse:collapse;font-family:var(--f-mono,'Red Hat Mono',monospace);font-size:.85rem;font-weight:500;text-transform:uppercase}.ds-fids th{padding:10px 12px 8px;border-bottom:1px solid rgb(255 255 255/.14);font-family:var(--f-text,'Red Hat Text',sans-serif);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-align:left;color:var(--on-blue-3,#93a6d6)}.ds-fids td{padding:7px 10px;border-bottom:1px solid rgb(255 255 255/.07);white-space:nowrap}.ds-fids tbody tr:nth-child(odd){background:var(--blue-row,#08215f)}.ds-flap{display:inline-flex;gap:2px;vertical-align:middle}.ds-flap span{position:relative;display:inline-grid;place-items:center;min-width:1.2em;height:1.65em;border-radius:2px;background:var(--blue-row,#08215f);box-shadow:inset 0 0 0 1px rgb(255 255 255/.06);font-weight:600;line-height:1}.ds-fids tbody tr:nth-child(odd) .ds-flap span{background:var(--blue-deep,#061a4d)}.ds-flap span::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgb(0 0 0/.45)}.ds-fst{display:inline-block;min-width:96px;padding:3px 8px;border-radius:2px;font-weight:600;text-align:center}.ds-fst--new{background:#fff;color:var(--blue-deep,#061a4d)}.ds-fst--final{background:var(--amber,#f2b632);color:#2a1c00}"
+    },
+    {
+      "name": "Ruled Sequence",
+      "kind": "custom",
+      "description": "Large Board Blue numerals on a ruled list; no tiles or icons.",
+      "html": "<ol class=\"ds-steps\"><li><span class=\"ds-steps__n\">1</span><h3>Find a vacancy</h3><p>Search by title, city or sector.</p></li><li><span class=\"ds-steps__n\">2</span><h3>Apply with your CV</h3><p>No account and no long forms.</p></li></ol>",
+      "css": ".ds-steps{margin:0;padding:0;list-style:none;border-top:1.5px solid var(--ink,#0a1633);font-family:var(--f-text,'Red Hat Text',sans-serif)}.ds-steps li{display:grid;grid-template-columns:96px 1fr 1.4fr;align-items:baseline;gap:8px 32px;padding:28px 0;border-bottom:1px solid var(--line,#d9dfea)}.ds-steps__n{font-family:var(--f-display,'Red Hat Display',sans-serif);font-size:3.25rem;font-weight:800;line-height:.9;letter-spacing:-.04em;color:var(--blue,#0b2a7a)}.ds-steps h3{margin:0;font-family:var(--f-display,'Red Hat Display',sans-serif);font-size:1.35rem;font-weight:700;letter-spacing:-.02em;color:var(--ink,#0a1633)}.ds-steps p{margin:0;color:var(--ink-2,#3a4660)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Departures Board",
+    "overview": "Every vacancy is a departure. It has a Ref, a destination city, a closing time and a live status, and the site reads like the flight-information displays and wayfinding of an international terminal. Drenched board blue owns whole regions of the page (the Openings board, the job-detail header, the employer field, the footer); terminal white and cool concourse grey carry the reading; hairline rules divide everything else. Hierarchy comes from type scale and region colour. There are no decorative containers.\n\nThe register is professional, calm and exact. Fixed-width mono cells carry the machine facts (refs, times, counts, statuses) and settle into place with a split-flap motion. Display headlines are heavy and tightly tracked. Body copy is plain and generous. Amber is the only warm colour, and it appears only when a vacancy is about to close.\n\nThe system is a deliberate refusal of the job-portal category default: no dark photo hero with a rounded search pill, no pastel icon tiles, no card-shell listings.",
+    "keyCharacteristics": [
+      "Board blue fills whole regions. It is never used as a tint wash or gradient.",
+      "Hairline rules (1px) and ruled sequences take the place of cards and tiles.",
+      "Mono flap cells with a hinge line for refs, closing days and result counts.",
+      "Square forms: 4px for controls and panels, 2px for cells and status tags.",
+      "Amber means closing time and nothing else.",
+      "Photography bleeds to the edge or fills a whole panel. It is never a framed thumbnail."
+    ],
+    "rules": [
+      {
+        "name": "The Amber Means Leaving Rule",
+        "body": "Amber appears only on the Closing and Final call statuses. It is never used for decoration, highlights, buttons or brand accents.",
+        "section": "colors"
+      },
+      {
+        "name": "The Region Rule",
+        "body": "Blue arrives as a whole region (a section, a header or a panel), not as a tinted card or a gradient. A screen alternates fields of white or grey with fields of blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The No-Green Rule",
+        "body": "The palette has no green token. Status runs NEW (sky/blue), OPEN (outlined), CLOSING (amber outline or soft), FINAL CALL (solid amber).",
+        "section": "colors"
+      },
+      {
+        "name": "The Machine Facts Rule",
+        "body": "Anything a departures board would print (Ref, time, count, days, status) is set in Red Hat Mono with tabular numerals. Human prose is never set in mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Uppercase Belongs to the Board Rule",
+        "body": "Uppercase is used only inside the board grammar: Openings board cells and column heads, and status tags. Headings, labels and buttons stay in sentence case.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hung Not Floating Rule",
+        "body": "A shadow is allowed only when a surface overlaps photography or the page as an overlay. Listings and in-flow panels sit flat on their ground.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** let Board Blue (#0b2a7a) and Board Blue Deep (#061a4d) fill whole regions, alternating with white and grey (#eef1f6) bands.",
+      "**Do** set every Ref, time, count, day figure and status in Red Hat Mono with tabular numerals.",
+      "**Do** use the split-flap settle for board facts (Ref, Closes, result counts), and always render the final text under reduced motion.",
+      "**Do** divide content with 1px hairlines (#d9dfea) and ruled sequences, and build hierarchy from type scale and region colour.",
+      "**Do** keep corners square: 4px for controls and panels, 2px for cells and tags.",
+      "**Do** use field labels in sentence case, small, at weight 700, in ink-3 (#5a6680) above values, the way the kiosk does.",
+      "**Do** show a photograph only where the subject has a real one. Otherwise use a blue signage panel."
+    ],
+    "donts": [
+      "**Don't** use amber (#f2b632) for anything except the Closing and Final call statuses.",
+      "**Don't** wrap listings in cards, add shadows to rows or in-flow panels, or put thumbnails on vacancy rows.",
+      "**Don't** use rounded pill search bars, pill tags or circular badges.",
+      "**Don't** use icon tiles: pastel squares or circles holding an icon to decorate a feature, step or sector.",
+      "**Don't** put an uppercase eyebrow or kicker label above section headings. Section headings stand alone.",
+      "**Don't** introduce green, gradients or tinted-blue card washes.",
+      "**Don't** set prose or headings in mono, or use uppercase outside the board grammar and status tags."
+    ]
+  }
+}

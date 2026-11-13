@@ -1,0 +1,130 @@
+{
+  "title": "Choose Righton's visual world",
+  "question": "The roll assigned Departures Board. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Departures Board",
+      "kicker": "THE ROLL",
+      "lineage": "Bole International flight-information displays and airport wayfinding",
+      "thesis": "Every vacancy is a departure: a ref, a destination city, a closing time, a live status.",
+      "palette": ["#0b2a7a", "#061a4d", "#ffffff", "#e9eef7", "#f2b632"],
+      "materials": ["split-flap tiles", "enamel wayfinding signs", "terminal photography"],
+      "viewport": "A full-bleed terminal-light photograph, headline and Find work / Hire through Righton on the left, a live blue Openings board with flipping rows on the right, search docked under it.",
+      "risk": "Becomes airport costume if pictograms, gates and flap noise spread beyond the board itself.",
+      "raised": [
+        { "from": "Variable-font specimen", "raise": "Hierarchy by type scale alone: no icon tiles, no pills, no card shells around listings." },
+        { "from": "Soundsystem dance poster", "raise": "Blue owns whole regions: the board is a drenched blue field, not blue accents on white." },
+        { "from": "Nixie laboratory counter", "raise": "Counts and days-left sit in fixed-width digit cells that change as one physical flip." },
+        { "from": "Memory quilt atlas", "raise": "Every listing carries its provenance line: ref, received from client, published by Righton." }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Vacancy Announcement",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Boxed vacancy ads in The Reporter and Addis Zemen classifieds",
+      "thesis": "The portal as the classifieds page Ethiopians have read jobs from for decades, set with modern precision.",
+      "palette": ["#ffffff", "#0d0f14", "#1f47c7", "#d7dde8"],
+      "materials": ["ruled box frames", "condensed headline type", "halftone photography"],
+      "viewport": "A broadsheet grid of boxed vacancy announcements, the newest set large as the lead ad beside a halftone workplace photo and the two actions.",
+      "risk": "The familiar editorial-newspaper move many runs land on; reads dated if set timidly."
+    },
+    {
+      "id": "challenger-specimen",
+      "label": "Variable-font specimen",
+      "verdict": "declined",
+      "lineage": "Interactive foundry type specimens",
+      "thesis": "Job titles set as a living specimen, scale doing all the work.",
+      "palette": ["#fafafa", "#0a0a0a", "#2152d4"],
+      "materials": ["flat paper", "monospace readouts"],
+      "viewport": "One giant job title morphing weight as you scroll the list.",
+      "risk": "Typography spectacle that seekers don't recognise as a job board.",
+      "case": "Fuses poorly: seekers don't identify with type specimens; clarity drops.",
+      "kept": "Hierarchy by scale alone, no ornament.",
+      "hero": "https://impeccable.style/worlds/cards/variable-font-specimen-hero.webp"
+    },
+    {
+      "id": "challenger-soundsystem",
+      "label": "Soundsystem dance poster",
+      "verdict": "declined",
+      "lineage": "Screened Jamaican dance posters",
+      "thesis": "Vacancies billed like sounds, ranked by weight in block caps.",
+      "palette": ["#f7e600", "#ff4fa3", "#0a0a0a"],
+      "materials": ["fluorescent card", "heavy screened ink"],
+      "viewport": "Outlined block-cap job titles stacked by deadline.",
+      "risk": "Breaks the pinned white-and-blue palette and the trust register.",
+      "case": "Fuses poorly: loud for a CV-trusting audience; palette conflicts with the brief.",
+      "kept": "Total palette commitment at page scale.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-soundsystem-dance-poster-hero.webp"
+    },
+    {
+      "id": "challenger-nixie",
+      "label": "Nixie laboratory counter",
+      "verdict": "declined",
+      "lineage": "Glow-tube laboratory counters",
+      "thesis": "Open vacancies and deadlines as glowing digit banks.",
+      "palette": ["#111316", "#ff7a1a", "#8a8f96"],
+      "materials": ["glass tubes", "blackened steel"],
+      "viewport": "Digit banks counting open roles above the list.",
+      "risk": "Counts are thin with a small board; reads as a gadget.",
+      "case": "Fuses poorly: quantities aren't what seekers came for.",
+      "kept": "Fixed digit positions; a count change is a physical event.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-nixie-laboratory-counter-hero.webp"
+    },
+    {
+      "id": "challenger-quilt",
+      "label": "Memory quilt atlas",
+      "verdict": "declined",
+      "lineage": "Hand-pieced garment quilts",
+      "thesis": "Each vacancy a pieced block with its own provenance.",
+      "palette": ["#7d93b8", "#1b1b1b", "#c8322b", "#6b4a2b"],
+      "materials": ["worn fabric", "visible stitching"],
+      "viewport": "A patch grid of vacancies seamed by sector.",
+      "risk": "Domestic and sentimental; undermines a professional agency.",
+      "case": "Fuses poorly on both axes.",
+      "kept": "Every block cites where it came from.",
+      "hero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-memory-quilt-atlas-hero.webp"
+    },
+    {
+      "id": "challenger-tensegrity",
+      "label": "Tensegrity column",
+      "verdict": "declined",
+      "lineage": "Kinetic tensegrity sculpture",
+      "thesis": "Hiring as balanced forces between seekers and employers.",
+      "palette": ["#e6e4df", "#141414", "#d23a2a"],
+      "materials": ["carbon rods", "red cord"],
+      "viewport": "A strut network with roles pinned to nodes.",
+      "risk": "Abstract; a job list doesn't map to a force diagram.",
+      "case": "Fuses poorly: no audience recognition, low clarity.",
+      "kept": "Every value labelled precisely with its unit.",
+      "hero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-tensegrity-breathing-column-hero.webp"
+    },
+    {
+      "id": "challenger-vhs",
+      "label": "Video store wall",
+      "verdict": "declined",
+      "lineage": "Friday-night VHS rental aisles",
+      "thesis": "Sectors as aisles, filled roles as empty slots with a tag.",
+      "palette": ["#0b0b0b", "#d8262f", "#5b8fd6", "#ffd23f"],
+      "materials": ["clamshell cases", "shelf talkers"],
+      "viewport": "A shelf of vacancy spines by sector.",
+      "risk": "Nostalgia foreign to the Ethiopian audience.",
+      "case": "Fuses poorly: no audience identification; browsing spines slows applying.",
+      "kept": "Absence as an honest state: closed roles stay visible as closed.",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-vhs-rental-wall-hero.webp"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": false },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A Welcome-to-the-Jungle-grade job board: editorial photography, a clean list, executed impeccably.",
+    "palette": ["#ffffff", "#0f172a", "#2152d4", "#f3f5f9"],
+    "materials": ["editorial photography", "clean list grid"],
+    "viewport": "Photo hero with headline, two actions and search; a refined list and detail below.",
+    "risk": "Indistinguishable from other portals by design."
+  },
+  "steer": true
+}
