@@ -51,14 +51,14 @@ Undecided:
 - Name: **Righton**. The exact casing or spacing of the wordmark is not confirmed. There is no logo yet.
 - The user requires the design to look **sleek, premium and very professional**.
 - **Palette pinned by the user (2026-11-13): white and blue.** This replaces the earlier deep-green background reference.
-- **The site is image-based.** The first hero must contain a photograph and two buttons.
+- **The site is image-based.** The first hero has two buttons and a strong visual on the right. Updated by the user on 2026-11-13: follow the Afriwork structure reference for the right side (one 3D object with floating info chips), and do not use the warehouse/carton photo.
 - Structure reference: `UI inspirations/the strucutre.png` (Afriwork): announcement bar, nav, hero with two actions. Use only the structure, not its branding.
 
 ## Evidence on Hand
 
 - Photography: Unsplash photos in `public/images/` (the hero, round and employer images). Sourced via the Unsplash license and used as prototype imagery; replace them with Righton's own photography when it's available.
 - Reference screenshots: `UI inspirations/just the background.png` and `UI inspirations/the strucutre.png`.
-- No logo, real job postings, client company names or logos, applicant counts, testimonials, or statistics exist yet. Do not fabricate any of them. The reference's "300,000+ applicants" stats and employer logo strip must not be copied or invented. Use clearly marked placeholders until real data arrives.
+- No logo, real job postings, client company names or logos, applicant counts, testimonials, or statistics exist yet. Do not fabricate any of them. The reference's "300,000+ applicants" stats and employer logo strip must not be copied or invented. Use clearly marked placeholders until real data arrives. Updated by the user on 2026-11-13: the landing page shows a featured-jobs carousel rather than the full board (the full job list lives at /jobs, built from the user's listing inspiration) and instead carries placeholder hiring figures and placeholder testimonials. These live in `app/data/landing.ts` behind `isPlaceholder`, are visibly labelled on the page, and must be replaced with verified figures and approved quotes before launch. The home page's "Top employers" logo band uses well-known fictional placeholder companies (Contoso, Fabrikam, Northwind…), never real brands, until Righton supplies its actual clients' logos with their permission.
 
 ## Product Principles
 

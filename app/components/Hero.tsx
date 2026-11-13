@@ -1,65 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
-import { cities, isSample, jobs, latest, sectors, status, type Filters, type Sector } from "../data/jobs";
+import { cities, sectors, type Sector } from "../data/jobs";
+import { isPlaceholder, stats } from "../data/landing";
 import { sectorLabel } from "./sectorMeta";
 import { FlapText } from "./FlapText";
 
-const rows = latest(5);
+const [placed, clients, shortlist] = stats;
 
-function useAddisClock() {
-  const [now, setNow] = useState<string | null>(null);
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Africa/Addis_Ababa",
-    });
-    const tick = () => setNow(fmt.format(new Date()));
-    tick();
-    const id = window.setInterval(tick, 15000);
-    return () => clearInterval(id);
-  }, []);
-  return now;
-}
+const toJobs = (f: { q?: string; city?: string; sector?: string }) => {
+  const p = new URLSearchParams(Object.entries(f).filter(([, v]) => v) as [string, string][]);
+  const qs = p.toString();
+  return `/jobs${qs ? `?${qs}` : ""}`;
+};
 
-export function Hero({
-  filters,
-  onSearch,
-  onOpen,
-}: {
-  filters: Filters;
-  onSearch: (f: Partial<Filters>) => void;
-  onOpen: (ref: string) => void;
-}) {
-  const clock = useAddisClock();
-  const [q, setQ] = useState(filters.q);
-  const [city, setCity] = useState(filters.city);
-  const [sector, setSector] = useState<Sector | "">(filters.sector);
-
-  useEffect(() => {
-    setQ(filters.q);
-    setCity(filters.city);
-    setSector(filters.sector);
-  }, [filters.q, filters.city, filters.sector]);
+export function Hero() {
+  const [q, setQ] = useState("");
+  const [city, setCity] = useState("");
+  const [sector, setSector] = useState<Sector | "">("");
 
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero__grid">
         <div className="hero__copy">
           <h1 id="hero-title" className="hero__title">
-            Real vacancies,
+            The right people,
             <br />
-            open now.
+            in the right roles.
           </h1>
           <p className="hero__lede">
-            Righton publishes every opening its client companies send, across Ethiopia. Read the
-            full brief, see the salary and deadline, and apply with your CV in minutes. No account
-            needed.
+            Righton is a recruitment agency placing professionals with companies across Ethiopia.
+            Find a vacancy and apply with your CV in minutes, or tell us who you need to hire.
           </p>
           <div className="hero__actions">
-            <a href="#vacancies" className="btn btn--primary btn--lg">
+            <a href="/jobs" className="btn btn--primary btn--lg">
               Find work
               <ArrowRight size={18} aria-hidden="true" />
             </a>
@@ -69,72 +44,49 @@ export function Hero({
           </div>
         </div>
 
-        <div className="hero__stage">
+        <div className="stage" role="group" aria-label="Righton at a glance">
+          <span className="stage__disc" aria-hidden="true" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="hero__photo"
-            src="/images/hero/logistics.jpg"
-            alt="A long, brightly lit warehouse aisle between tall racks of stock"
-            fetchPriority="high"
-          />
+          <img className="stage__obj stage__obj--case" src="/images/3d/suitcase.webp" alt="" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="stage__obj stage__obj--pin" src="/images/3d/pin.webp" alt="" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="stage__obj stage__obj--cv" src="/images/3d/cv.webp" alt="" aria-hidden="true" />
 
-          <div className="fids" role="region" aria-labelledby="fids-title">
-            <div className="fids__head">
-              <h2 id="fids-title" className="fids__title">
-                Openings
-              </h2>
-              <p className="fids__meta">
-                {isSample && <span className="fids__sample">Sample listings</span>}
-                <span>Addis Ababa</span>
-                <span className="fids__clock" aria-label={clock ? `Local time ${clock}` : undefined}>
-                  {clock ?? "--:--"}
+          <div className="chip chip--new">
+            <span className="chip__dot" aria-hidden="true" />
+            <span className="chip__text">
+              <span className="chip__lead chip__lead--row">
+                <FlapText text={String(placed.value)} cells className="chip__cells" />
+                <span>
+                  {placed.suffix}&nbsp;{placed.label.toLowerCase()}
                 </span>
-              </p>
-            </div>
-            <table className="fids__table">
-              <thead>
-                <tr>
-                  <th scope="col">Ref</th>
-                  <th scope="col">Position</th>
-                  <th scope="col" className="fids__city">City</th>
-                  <th scope="col">Closes</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((j, i) => {
-                  const s = status(j);
-                  return (
-                    <tr key={j.ref}>
-                      <td className="fids__ref">
-                        <FlapText text={j.ref.replace("RT-", "")} delay={i * 110} cells />
-                      </td>
-                      <td className="fids__pos">
-                        <button type="button" onClick={() => onOpen(j.ref)}>
-                          <FlapText text={j.title.toUpperCase()} delay={i * 110 + 60} />
-                        </button>
-                      </td>
-                      <td className="fids__city">
-                        <FlapText text={j.city.toUpperCase()} delay={i * 110 + 120} />
-                      </td>
-                      <td className="fids__closes">
-                        <FlapText text={String(j.closesInDays).padStart(2, "0")} delay={i * 110 + 160} cells />
-                        <span className="fids__unit">days</span>
-                      </td>
-                      <td>
-                        <span className={`fids__status is-${s.tone}`}>
-                          <FlapText text={s.label.toUpperCase()} delay={i * 110 + 200} />
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <a href="#vacancies" className="fids__all">
-              All {jobs.length} {isSample ? "sample " : ""}vacancies
-              <ArrowRight size={16} aria-hidden="true" />
-            </a>
+              </span>
+              <span className="chip__sub">{placed.note}</span>
+            </span>
+          </div>
+
+          <div className="chip chip--closing">
+            <span className="chip__dot chip__dot--amber" aria-hidden="true" />
+            <span className="chip__text">
+              <span className="chip__lead chip__lead--row">
+                First shortlist in
+                <FlapText text={String(shortlist.value)} cells className="chip__cells" />
+                hours
+              </span>
+              <span className="chip__sub">{shortlist.note}</span>
+            </span>
+          </div>
+
+          <div className="chip chip--count">
+            <span className="chip__dot" aria-hidden="true" />
+            <span className="chip__text">
+              <span className="chip__lead chip__lead--row">
+                <FlapText text={String(clients.value)} cells className="chip__cells" />
+                <span>{clients.suffix}&nbsp;client companies</span>
+              </span>
+              <span className="chip__sub">{isPlaceholder ? "Placeholder figures" : clients.note}</span>
+            </span>
           </div>
         </div>
       </div>
@@ -145,8 +97,7 @@ export function Hero({
         aria-label="Search vacancies"
         onSubmit={(e) => {
           e.preventDefault();
-          onSearch({ q, city, sector });
-          document.getElementById("vacancies")?.scrollIntoView({ block: "start" });
+          window.location.assign(toJobs({ q, city, sector }));
         }}
       >
         <label className="kiosk__field kiosk__field--q">

@@ -5,10 +5,10 @@ import { Menu, X } from "lucide-react";
 import { Wordmark } from "./Wordmark";
 
 const links = [
-  { href: "#vacancies", label: "Find jobs" },
-  { href: "#sectors", label: "Sectors" },
-  { href: "#how-to-apply", label: "How to apply" },
-  { href: "#employers", label: "For employers" },
+  { href: "/jobs", label: "Find jobs" },
+  { href: "/#featured", label: "Featured" },
+  { href: "/#stories", label: "Stories" },
+  { href: "/#employers", label: "For employers" },
 ];
 
 export function Nav() {
@@ -32,7 +32,7 @@ export function Nav() {
   return (
     <header className={`nav ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}>
       <div className="nav__inner">
-        <a href="#top" className="nav__brand" aria-label="Righton home">
+        <a href="/" className="nav__brand" aria-label="Righton home">
           <Wordmark />
         </a>
         <nav aria-label="Primary" className="nav__links">
@@ -42,7 +42,7 @@ export function Nav() {
             </a>
           ))}
         </nav>
-        <a href="#employers" className="btn btn--ghost btn--sm nav__cta">
+        <a href="/#employers" className="btn btn--ghost btn--sm nav__cta">
           Hire through Righton
         </a>
         <button
@@ -62,7 +62,7 @@ export function Nav() {
             {l.label}
           </a>
         ))}
-        <a href="#employers" className="btn btn--ghost" onClick={() => setOpen(false)}>
+        <a href="/#employers" className="btn btn--ghost" onClick={() => setOpen(false)}>
           Hire through Righton
         </a>
       </div>

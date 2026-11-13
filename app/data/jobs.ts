@@ -387,3 +387,43 @@ export function status(j: Job): Status {
 }
 
 export const latest = (n: number) => [...jobs].sort((a, b) => a.postedDaysAgo - b.postedDaysAgo).slice(0, n);
+
+/** "5+ years, including IFRS reporting" -> "5+ yrs". */
+export const experienceShort = (j: Job) => {
+  const m = j.experience.match(/(\d+)\+?\s*years?/i);
+  return m ? `${m[1]}+ yrs` : null;
+};
+
+/** Two-letter monogram standing in for a client logo (client names are not published). */
+export const monogram = (j: Job) =>
+  j.clientType
+    .split(/[\s&]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+
+/** Skill tags shown on each listing (sample data). */
+export const skills: Record<string, string[]> = {
+  "RT-0148": ["JavaScript", "React", "Testing"],
+  "RT-0146": ["Scheduling", "Filing", "Client service"],
+  "RT-0145": ["Medical sales", "Negotiation", "Field visits"],
+  "RT-0142": ["IFRS", "Payroll", "Tax filing"],
+  "RT-0141": ["Menu planning", "Food costing", "Team leadership"],
+  "RT-0139": ["FMCG", "Route sales", "Team leadership"],
+  "RT-0137": ["Site supervision", "Quantity checks", "AutoCAD"],
+  "RT-0136": ["Networking", "Hardware support", "Helpdesk"],
+  "RT-0135": ["Customs clearance", "Shipping documents", "Warehousing"],
+  "RT-0133": ["Power systems", "Preventive maintenance", "Safety"],
+  "RT-0131": ["Opera PMS", "Guest relations", "Shift planning"],
+  "RT-0130": ["Inventory control", "Stock counts", "Forklift ops"],
+  "RT-0128": ["Dispensing", "Prescription review", "Records"],
+  "RT-0126": ["Patient care", "Night shifts", "Observations"],
+};
+
+/** Entry (under 2 years), Intermediate (2-4), Senior (5+), from the experience line. */
+export const level = (j: Job) => {
+  const m = j.experience.match(/(\d+)\+?\s*years?/i);
+  const y = m ? Number(m[1]) : 0;
+  return y >= 5 ? "Senior" : y >= 2 ? "Intermediate" : "Entry level";
+};

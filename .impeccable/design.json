@@ -398,10 +398,6 @@
         "displayName": "Label",
         "purpose": "Sentence-case field labels above kiosk and filter values."
       },
-      "board-head": {
-        "displayName": "Board Head",
-        "purpose": "Uppercase column heads on the Openings board only."
-      },
       "cell": {
         "displayName": "Cell",
         "purpose": "Mono tabular machine facts: refs, times, counts, days, phone numbers."
@@ -476,7 +472,7 @@
       },
       "cell-lg": {
         "displayName": "Cell Large",
-        "purpose": "Board clock and the solid count cell."
+        "purpose": "The solid count cell."
       },
       "cell-xl": {
         "displayName": "Cell XL",
@@ -682,8 +678,8 @@
         "section": "typography"
       },
       {
-        "name": "The Uppercase Belongs to the Board Rule",
-        "body": "Uppercase is used only inside the board grammar: Openings board cells and column heads, and status tags. Headings, labels and buttons stay in sentence case.",
+        "name": "The Uppercase Belongs to the Tags Rule",
+        "body": "Uppercase is used only in status tags. Headings, job titles, labels and buttons stay in sentence case.",
         "section": "typography"
       },
       {

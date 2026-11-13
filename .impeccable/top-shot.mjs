@@ -5,7 +5,7 @@ for (const [name, vp, mobile] of [["desktop", { width: 1440, height: 900 }, fals
   const page = await ctx.newPage();
   await page.goto("http://localhost:3100/", { waitUntil: "networkidle", timeout: 120000 });
   await page.waitForTimeout(2500);
-  if (mobile) await page.evaluate(() => window.scrollTo(0, 520));
+  if (mobile) await page.evaluate(() => window.scrollTo(0, 470));
   await page.waitForTimeout(400);
   await page.screenshot({ path: `.impeccable/review/portal/${name}-top.png` });
   await ctx.close();

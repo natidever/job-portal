@@ -151,11 +151,6 @@ typography:
     fontFamily: "Red Hat Text, Segoe UI, system-ui, sans-serif"
     fontSize: "0.75rem"
     fontWeight: 700
-  board-head:
-    fontFamily: "Red Hat Text, Segoe UI, system-ui, sans-serif"
-    fontSize: "0.72rem"
-    fontWeight: 600
-    letterSpacing: "0.06em"
   cell:
     fontFamily: "Red Hat Mono, Consolas, ui-monospace, monospace"
     fontSize: "0.85rem"
@@ -264,7 +259,7 @@ components:
 
 **Creative North Star: "The Departures Board"**
 
-Every vacancy is a departure. It has a Ref, a destination city, a closing time and a live status, and the site reads like the flight-information displays and wayfinding of an international terminal. Drenched board blue owns whole regions of the page (the Openings board, the job-detail header, the employer field, the footer); terminal white and cool concourse grey carry the reading; hairline rules divide everything else. Hierarchy comes from type scale and region colour. There are no decorative containers.
+Every vacancy is a departure. It has a Ref, a destination city, a closing time and a live status, and the site reads like the flight-information displays and wayfinding of an international terminal. Drenched board blue owns whole regions of the page (the job-detail header, the alerts panel, the employer field, the footer); terminal white and cool concourse grey carry the reading; hairline rules divide everything else. Hierarchy comes from type scale and region colour. There are no decorative containers.
 
 The register is professional, calm and exact. Fixed-width mono cells carry the machine facts (refs, times, counts, statuses) and settle into place with a split-flap motion. Display headlines are heavy and tightly tracked. Body copy is plain and generous. Amber is the only warm colour, and it appears only when a vacancy is about to close.
 
@@ -284,8 +279,8 @@ A cold, two-field palette of saturated board blue against terminal white and con
 
 ### Primary
 - **Board Blue** (blue): the drenched region colour. Used for the job-detail header, the employer section, the How-it-works alerts panel, the sector signage panel, primary buttons, the kiosk Search block, the selected list row, the active-tab underline and the step numerals. It is also the browser theme colour.
-- **Board Blue Deep** (blue-deep): the Openings board body, the announcement bar, the footer, the mobile sheet bar, figure captions, and the ground of the flap cells and count cells.
-- **Board Row** (blue-row): the alternating stripe on Openings board rows, and the default flap-cell face.
+- **Board Blue Deep** (blue-deep): the announcement bar, the footer, the mobile sheet bar, figure captions, and the ground of the flap cells and count cells.
+- **Board Row** (blue-row): the hover fill on Latest vacancies rows, and the default flap-cell face.
 - **Board Blue Lit** (blue-hi): the hover state of blue buttons and the kiosk Search block only.
 
 ### Secondary
@@ -300,7 +295,7 @@ A cold, two-field palette of saturated board blue against terminal white and con
 ### Neutral
 - **Terminal White** (white): the page ground, the list surface, the detail body, panels and forms.
 - **Concourse Grey** (grey) / **Grey 2** (grey-2): the vacancy-board section ground, row hover, the focused kiosk field, sector count cells and the drop zone.
-- **Hairline** (line) / **Hairline Strong** (line-2): 1px dividers everywhere. line-2 is for input strokes, the list top rule and the dotted leader in the sector directory.
+- **Hairline** (line) / **Hairline Strong** (line-2): 1px dividers everywhere. line-2 is for input strokes, the list top rule.
 - **Ink / Ink 2 / Ink 3** (ink, ink-2, ink-3): headings, body copy, and meta text. Ink 3 is also used for placeholders and field labels.
 - **On-Blue 1-3** (on-blue, on-blue-2, on-blue-3): the same three-step text ladder, used on blue regions.
 - **Danger** (danger): form error text and error strokes only.
@@ -327,7 +322,6 @@ The full shipped ramp, largest to smallest. Each step names its family and where
 **Display voices (Red Hat Display)**
 - **Display** (800, clamp(3rem, 5vw, 4.75rem), 0.96): the hero headline only.
 - **Display Mobile** (800, clamp(2.6rem, 12vw, 3.25rem), 0.96): the same hero headline under 720px.
-- **Numeral** (800, clamp(2.75rem, 4vw, 3.75rem), 0.9, Board Blue): the sequence numbers in How applying works.
 - **Signage** (800, clamp(2rem, 3.4vw, 3rem), 1.02): the sector name on the blue signage panel.
 - **Wordmark Footer** (800, 2rem): the wordmark on the blue-deep footer.
 - **Headline** (700, clamp(1.75rem, 3.2vw, 2.5rem), 1.08): section titles, with a white variant on blue.
@@ -336,8 +330,7 @@ The full shipped ramp, largest to smallest. Each step names its family and where
 - **Panel Title Large** (800, 1.6rem, 1.1): the Telegram alerts panel title and the "Vacancy received" confirmation.
 - **Wordmark** (800, 1.55rem, 1): the nav wordmark.
 - **Panel Title** (800, 1.5rem): the employer Vacancy request panel title.
-- **Directory** (700, clamp(1.15rem, 1.8vw, 1.5rem)): sector names in the sector directory.
-- **Board Title** (700, 1.4rem): "Openings" in the board header strip.
+- **Board Title** (700, 1.4rem): "Latest vacancies" in the board header strip.
 - **Title Medium** (700, 1.35rem): step titles and the empty-state title.
 - **Title** (700, 1.2rem, 1.25): vacancy titles in the list.
 - **Sheet Link** (600, 1.15rem): ruled links in the mobile nav sheet.
@@ -351,36 +344,37 @@ The full shipped ramp, largest to smallest. Each step names its family and where
 - **Action Small** (700, 0.9rem): small buttons, the board's "All vacancies" link, Clear filters and sector photo captions.
 - **Meta** (400, 0.8rem): days left on a row and channel labels in the employer contact list.
 - **Label** (700, 0.72-0.75rem, sentence case, ink-3): kiosk and filter field labels (What, Where, Sector, City).
-- **Board Head** (600, 0.72rem, 0.06em tracking, uppercase, on-blue-3): column heads on the Openings board only.
 
 **Machine voices (Red Hat Mono, tabular numerals)**
 - **Cell XL** (600, 1.4rem): the count cell on the sector signage panel.
 - **Cell Count** (600, 1.15rem): the flap-tiled results count on the vacancy board.
-- **Cell Large** (600, 1.1rem): the board clock and the solid count cell.
+- **Cell Large** (600, 1.1rem): the solid count cell.
 - **Cell** (500-600, 0.85rem on the board; inherits elsewhere, with list Refs at 0.8rem): refs, closing days, positions and phone numbers.
+
+**The Human Board Rule.** In the hero, people read jobs, not codes: titles in sentence case, then employer type and city, then "Closes in N days" with only the day count in flap cells. Refs live in the vacancy list and detail.
 - **Status** (Mono 600, 0.72rem, uppercase): status tags.
 
 ### Named Rules
 **The Machine Facts Rule.** Anything a departures board would print (Ref, time, count, days, status) is set in Red Hat Mono with tabular numerals. Human prose is never set in mono.
 
-**The Uppercase Belongs to the Board Rule.** Uppercase is used only inside the board grammar: Openings board cells and column heads, and status tags. Headings, labels and buttons stay in sentence case.
+**The Uppercase Belongs to the Tags Rule.** Uppercase is used only in status tags. Headings, job titles, labels and buttons stay in sentence case.
 
 ## Layout
 
 The layout is a centred container (1280px max, with a fluid gutter of clamp(16px, 4vw, 48px)). Sections stack as full-width bands that alternate white, grey and blue, and their vertical padding is clamp(56px, 7vw, 104px). The nav is sticky at 72px (64px under 720px).
 
-The hero breaks the container on purpose. The copy column aligns to the container's left edge, and the photograph bleeds to the right edge of the window, with the Openings board hung over its lower part and overlapping the band below. A full-width square kiosk search follows.
+The hero breaks the container on purpose. The copy column aligns to the container's left edge, and the photograph bleeds to the right edge of the window, replaced on 2026-11-13 by the Hero Stage: a 3D object on a pale disc with floating listing chips. A full-width square kiosk search follows.
 
 Content splits use asymmetric fractional grids (11/13 hero, 6/5 list and detail, 7/5 directory, 1fr + 380px how-to). Below 1024px everything collapses to one column. The detail pane and the sector viewer are hidden, and the job detail opens as a full-height sheet. At 900px the nav becomes a toggle sheet and the kiosk becomes two columns. At 720px the kiosk becomes one column, the board drops its Ref and City columns, and the apply drawer becomes a bottom sheet.
 
-Lists are ruled sequences. Each list has a 1.5px ink top rule (directory, steps) or a line-2 top rule (vacancy list), then 1px hairline rows. Row padding sits around 18-28px vertically.
+Lists are ruled sequences. Each list has a 1.5px ink top rule (promotion benefits) or a line-2 top rule, then 1px hairline rows. Row padding sits around 18-28px vertically.
 
 ## Elevation & Depth
 
-The system is flat. Depth comes from region colour, hairlines and overlap, not from shadow. Listings, rows, panels, inputs and buttons carry no shadow. Two lifted shadows exist, and only for surfaces that physically hang over something else: the Openings board over the hero photograph, and the apply drawer over the page. Inset 1px rings (box-shadow inset) draw outline status tags and flap-cell edges, and a 2px inset bottom rule marks focused search and filter fields.
+The system is flat. Depth comes from region colour, hairlines and overlap, not from shadow. Listings, rows, panels, inputs and buttons carry no shadow. Two lifted shadows exist, and only for surfaces that physically hang over something else: the floating hero chips over the stage, and the apply drawer over the page. Inset 1px rings (box-shadow inset) draw outline status tags and flap-cell edges, and a 2px inset bottom rule marks focused search and filter fields.
 
 ### Shadow Vocabulary
-- **Hung board** (`box-shadow: 0 30px 60px -20px rgb(6 26 77 / 0.55)`): the Openings board hung over the hero photograph.
+- **Floating chip** (`box-shadow: 0 2px 4px rgb(10 22 51 / 0.06), 0 18px 40px -16px rgb(10 22 51 / 0.32)`): the listing chips floating over the hero stage; on hover the deeper `0 24px 48px -16px rgb(10 22 51 / 0.4)`.
 - **Drawer** (`box-shadow: -30px 0 80px -30px rgb(6 26 77 / 0.6)`): the apply drawer, over a blue-deep backdrop at 60%.
 - **Focus rule** (`box-shadow: inset 0 -2px 0 var(--blue)`): a focused kiosk field, filter field or form input.
 
@@ -389,7 +383,7 @@ The system is flat. Depth comes from region colour, hairlines and overlap, not f
 
 ## Shapes
 
-The form language is square, like signage. Controls, panels, inputs and the kiosk take a 4px corner. Flap cells, status tags, count cells, gates and scrollbar thumbs take 2px. Regions, photographs and the Openings board have hard 0 corners. Borders are 1px hairlines, with 1.5px ink strokes for secondary buttons, the kiosk outline and the top rules of ruled lists. The sector directory uses a dotted leader between name and count. The wordmark dots its i with a square signal-blue block. Nothing is pill-shaped or circular.
+The form language is square, like signage. Controls, panels, inputs and the kiosk take a 4px corner. Flap cells, status tags, count cells, gates and scrollbar thumbs take 2px. Regions and photographs have hard 0 corners. Borders are 1px hairlines, with 1.5px ink strokes for secondary buttons, the kiosk outline and the top rules of ruled lists. The wordmark dots its i with a square signal-blue block. Nothing is pill-shaped or circular, with one exception: the pale disc behind the hero's 3D objects.
 
 ## Components
 
@@ -403,7 +397,7 @@ Confident and square. Text is weighted 700 and an arrow nudges 3px on hover.
 - **Focus:** a 2px signal-blue outline with a 2px offset (global).
 
 ### Status Tags
-Square, mono and uppercase, with 2px corners (never pills). On light ground: OPEN is an inset line-2 outline in ink-2, NEW is a Sky Soft fill with blue text, CLOSING is an Amber Soft fill with amber-ink text, and FINAL CALL is a solid amber fill. On the Openings board: OPEN is a faint white outline, NEW is solid white on blue-deep, CLOSING is an amber outline with amber text, and FINAL CALL is solid amber. Board tags have a minimum width of 96px.
+Square, mono and uppercase, with 2px corners (never pills). On light ground: OPEN is an inset line-2 outline in ink-2, NEW is a Sky Soft fill with blue text, CLOSING is an Amber Soft fill with amber-ink text, and FINAL CALL is a solid amber fill. On the Latest vacancies board only meaningful states show a tag: NEW is solid white on blue-deep, CLOSING is an amber outline with amber text, and FINAL CALL is solid amber; OPEN rows carry no tag.
 
 ### Vacancy List
 Flat white rows on the grey board section, divided by hairlines. Each row is a three-area grid: a mono Ref column (76px), the title over the organisation, and the salary over the status plus days left. Hover tints a row to grey-2. The selected row turns solid Board Blue and its text moves to the on-blue ladder. There are no cards, shadows or thumbnails.
@@ -420,20 +414,34 @@ A square, 1.5px ink-outlined strip of labelled fields (What, Where, Sector) divi
 ### Navigation
 A white sticky bar with a hairline bottom border. Links are 600 ink-2 text, and on hover a 2px blue underline wipes in from the left. The bar ends in a small line button. Under 900px a 44px outlined toggle opens a sheet of ruled display-face links. Sort tabs on the board use the same wipe underline for their pressed state.
 
-### Openings Board (signature)
-A blue-deep flight-information panel. It has a Board Blue header strip holding the title, a Sample listings marker (2px corners, inset white ring), the city and a live mono clock. Its table is fixed-layout mono and uppercase, with Ref / Position / City / Closes / Status columns, odd rows striped in blue-row, and hairline row rules in white at 7%. A footer link leads to all vacancies.
+### Hero Stage (signature)
+The right side of the hero, after the Afriwork structure reference. A pale disc (radial Sky Soft fading to grey) carries one 3D hero object, the navy-and-gold suitcase, at up to 430px, with a map pin and a CV floating smaller at the upper left and lower right (the CV is dropped under 720px). The renders come from 3dicons (CC0, premium style) on white and are placed with `mix-blend-mode: multiply`, which drops the white into the disc and keeps their soft shadows; they float on a slow 7-9s staggered bob. Three white chips (4px corners, soft lifted shadow, square 8px dot in blue or amber) float over the stage and carry only real listing facts: the newest vacancy, the soonest-closing vacancy with its days in flap cells, and the count of open (sample) vacancies. Each chip opens its target; hovering lifts it 3px and turns its lead line blue. No invented statistics, no photograph, no table.
+
+### Featured Jobs Carousel
+After the hero, on the grey ground: a "Featured jobs" head with an All vacancies link and square prev/next buttons (44px, 1.5px ink stroke, disabled at 30%). The track bleeds to the window edge with scroll-snap, a right-edge fade on desktop, and full-width-ish (84vw) cards on phones. Each card is white with a hairline border and 4px corners: a FEATURED tag (sky-soft, mono, 2px), a save toggle (bookmark, fills blue when saved), a 56px blue-deep monogram block in the logo slot (client logos are not published), the title in the display face over employer type and city, a "N days left | Posted …" line (red when 5 days or fewer), grey 2px tags with line icons (sector, type, experience, positions), a three-line clamped description, and a hairline footer with salary over "View & apply". The last slot is a blue "Discover more" card with ruled links. Square pagination dots sit under the track; the active dot is a 28px blue bar.
+
+### Promotion
+A centred headline in the display face with its last phrase in Board Blue (never gradient text), a lede, then two columns: a ruled list of four benefits with plain blue line icons (no icon tiles) on the left; on the right a 2x2 hairline grid of figures in flap cells with display-face suffixes and labels, a "Placeholder figures" note while they are placeholders, and a Board Blue call-to-action panel with a white primary and a ghost-light secondary button. This section absorbed the former numbers band.
+
+### Top Employers Band
+After the promotion section, on white with a hairline top: a centred display-face title, a quiet placeholder note and a small Pause/Play toggle, then two rows of large monochrome logos (marks at 34px, names up to 2.25rem in ink-2) scrolling in opposite directions (48s and 56s loops) under a 12% edge fade. Hovering a row pauses it and turns a logo blue; real client logo files render grayscale and take colour on hover. With reduced motion the rows become static, swipeable strips. While the logos are placeholders (fictional companies such as Contoso and Fabrikam), the note says so; real brands appear only with the client's permission.
+
+### Testimonials
+After the "testimonial" inspiration, on the grey ground: a display-face title ("Hear what people are saying") with the sample note under it and a small Pause/Play toggle on the right, then two rows of quote cards drifting in opposite directions (70s and 80s loops) under a 6% edge fade. Each card is white, 340px wide (280px on phones), hairline-bordered with 4px corners: a quote mark (blue for candidates, amber for client companies), the quote, a hairline, then the attribution: a 44px block (blue-deep initials of the placed role for candidates; the placeholder brand mark on sky-soft for clients) beside the role in bold and the company or placed role and city. Hover or keyboard focus pauses a row and lifts the card; reduced motion makes the rows static, swipeable strips. No invented personal names or photos.
+
+### Job Listing Page (/jobs)
+After the "listing" inspiration, on the grey ground. A display-face "Discover jobs" title, a full-width square search (60px, hairline, 2px blue inset rule on focus), then two columns: the results panel and a 340px sticky "Filter jobs" panel (single column under 1024px, where a Filters button opens the same panel as a bottom sheet with a "Show N jobs" action).
+- Results: a white toolbar strip (All jobs / Saved, each with a mono count cell that turns solid blue when selected, wipe underline; sort select on the right), a "Showing N of M jobs" line, then one separated card per vacancy with a 16px gap on the grey ground, so no two vacancies share an edge. Cards lift with a soft shadow on hover.
+- Each card: a 52px blue-deep monogram block in the logo slot, the title in the display face (a button that opens the detail drawer) over employer type and "city · area, Ethiopia"; on the right an optional status tag (New, Closing, Final call), "Posted …", a Telegram share icon and a save bookmark (fills blue). Below, indented to the title's edge: a "Job details" excerpt masked after about three lines with a "Show more / Show less" toggle, and outlined 2px skill tags. Every card closes with a grey-2 facts strip divided by hairlines (salary in blue over "Monthly", experience level, job type, "In N days" deadline, red at 5 days or fewer) and a primary "View details" button held at the right; on phones the facts sit two by two and the button goes full width.
+- Filter panel: collapsible groups (Sector select, Job type and City checkboxes with mono counts, Date posted radios), each with a rotating chevron; "Clear all" appears when any filter is set.
+- Detail drawer: a 640px right-hand dialog with a blue-deep bar (Ref, close) holding the Job Detail component; Apply now hands over to the apply drawer.
+Saved jobs persist in the visitor's browser and are shared with the home-page carousel. Arrivals from the home page (?q, ?city, ?sector, ?ref) land pre-filtered or with that vacancy open.
 
 ### Split-Flap Cells (signature)
-Each glyph sits in its own 2px-cornered tile (1.2em by 1.65em) with a 1px Flap Hinge line at mid-height. The glyphs cycle through A-Z0-9 and settle left to right (70ms per cell, 420ms first spin, 220ms on later changes). They are used for Refs and closing days on the board and for the live results count. Position and city text flap without tiles (26ms per character). Screen readers get the final text. With reduced motion, the final text renders immediately.
-
-### Ruled Sequence
-Numbered steps on a 1.5px ink top rule, with each step a hairline-divided row: a large Board Blue display numeral, a title and the body. There are no tiles, icons or circles. The apply drawer's progress rail is the compact form: 28px square mono gates over a 2px bottom rule that turns blue when the step is current or done.
-
-### Sector Directory
-Ruled rows of display-face sector names, each followed by a dotted leader, a mono count cell and an arrow. On hover, the name shifts 8px and turns blue and the count cell fills blue. A sticky 4:5 viewer beside the list cross-fades to the hovered sector. Only sectors with their own photograph show one, captioned on blue-deep. Every other sector shows a Board Blue signage panel with the sector name, a count cell and a large arrow.
+Each glyph sits in its own 2px-cornered tile (1.2em by 1.65em) with a 1px Flap Hinge line at mid-height. The glyphs cycle through A-Z0-9 and settle left to right (70ms per cell, 420ms first spin, 220ms on later changes). They are used for the figures in the hero chips and the promotion figure grid. Job titles never flap: they render readable from the first frame. Screen readers get the final text. With reduced motion, the final text renders immediately.
 
 ### Blue Regions
-The job-detail header, the employer section, the alerts panel and the apply drawer header are solid Board Blue fields. They hold white display titles, on-blue-2 body text, facts split by 20%-white hairlines, and white or ghost-light buttons.
+The job-detail header, the employer section, the promotion call-to-action and the apply drawer header are solid Board Blue fields. They hold white display titles, on-blue-2 body text, facts split by 20%-white hairlines, and white or ghost-light buttons.
 
 ## Do's and Don'ts
 

@@ -13,10 +13,10 @@ export function Footer() {
             </p>
           </div>
           <nav aria-label="Footer" className="footer__links">
-            <a href="#vacancies">Vacancies</a>
-            <a href="#sectors">Sectors</a>
-            <a href="#how-to-apply">How to apply</a>
-            <a href="#employers">For employers</a>
+            <a href="/jobs">Find jobs</a>
+            <a href="/#featured">Featured jobs</a>
+            <a href="/#stories">Stories</a>
+            <a href="/#employers">For employers</a>
           </nav>
           <div className="footer__contact">
             <a href={contact.phoneHref} className="num">{contact.phoneDisplay}</a>
