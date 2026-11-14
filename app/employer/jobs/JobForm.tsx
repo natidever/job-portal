@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
-import { AlertCircle, Loader2, Plus, Send, X } from "lucide-react";
+import { useRef, useState, useTransition, type ReactNode } from "react";
+import { AlertCircle, Check, Loader2, Plus, Send, X } from "lucide-react";
 import { saveJob, type FormResult } from "../actions";
 import { EXPERIENCE_OPTIONS, JOB_TYPE_OPTIONS, WORKPLACE_OPTIONS } from "@/lib/data/employer-options";
 
@@ -28,6 +28,10 @@ export type JobFormValues = {
 type Opt = { id: string; name: string };
 
 const LABELS: Record<string, string> = {
+  company: "Company",
+  contact_name: "Your name",
+  phone: "Phone",
+  email: "Email",
   title: "Job title",
   category_id: "Category",
   city_id: "City",
@@ -43,7 +47,7 @@ const LABELS: Record<string, string> = {
   deadline: "Deadline",
 };
 
-function Err({ id, msg }: { id: string; msg?: string }) {
+export function Err({ id, msg }: { id: string; msg?: string }) {
   if (!msg) return null;
   return (
     <p className="em-err" id={`${id}-err`}>
@@ -59,12 +63,18 @@ export function JobForm({
   cities,
   minDeadline,
   mode,
+  lead,
+  action = saveJob,
 }: {
   initial: JobFormValues;
   categories: Opt[];
   cities: Opt[];
   minDeadline: string;
-  mode: "new" | "draft" | "rejected";
+  /** "request": the public vacancy request. One send button, no drafts, success shown in place. */
+  mode: "new" | "draft" | "rejected" | "request";
+  /** Extra fields rendered above the role, e.g. the requester's contact details. */
+  lead?: (errors: Record<string, string>) => ReactNode;
+  action?: (fd: FormData) => Promise<FormResult>;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [pending, start] = useTransition();
@@ -83,7 +93,7 @@ export function JobForm({
     const intent = fd.get("intent") === "submit" ? "submit" : "draft";
     setBusy(intent);
     start(async () => {
-      const res = await saveJob(fd); // redirects on success
+      const res = await action(fd); // saveJob redirects on success
       setResult(res);
       setBusy(null);
       if (!res.ok) {
@@ -97,9 +107,26 @@ export function JobForm({
     });
   }
 
+  const isRequest = mode === "request";
+
+  if (isRequest && result?.ok) {
+    return (
+      <div className="em-sec sent" role="status">
+        <span className="sent__mark" aria-hidden="true">
+          <Check size={26} strokeWidth={2.5} />
+        </span>
+        <h3>Vacancy received.</h3>
+        <p>{result.message}</p>
+        <a href="/" className="btn btn--line">
+          Back to Righton
+        </a>
+      </div>
+    );
+  }
+
   const inv = (k: string) => (errors[k] ? { "aria-invalid": true, "aria-describedby": `${k}-err` } : {});
 
-  const submitLabel = mode === "rejected" ? "Resubmit for review" : "Submit for review";
+  const submitLabel = mode === "request" ? "Send vacancy to Righton" : mode === "rejected" ? "Resubmit for review" : "Submit for review";
   const draftLabel = mode === "rejected" ? "Save changes" : "Save draft";
 
   return (
@@ -123,6 +150,8 @@ export function JobForm({
           )}
         </div>
       )}
+
+      {lead?.(errors)}
 
       <section className="em-sec" aria-labelledby="s-role">
         <div className="em-sec__head">
@@ -422,15 +451,19 @@ export function JobForm({
       <div className="em-actionbar">
         <div className="em-actionbar__in">
           <p className="em-actionbar__note">
-            {mode === "rejected"
-              ? "Resubmitting sends it back to the Righton team and clears their note."
-              : "Drafts are private. Submitting sends the post to the Righton team for review."}
+            {isRequest
+              ? "A Righton recruiter will call you to confirm the details before the vacancy is published."
+              : mode === "rejected"
+                ? "Resubmitting sends it back to the Righton team and clears their note."
+                : "Drafts are private. Submitting sends the post to the Righton team for review."}
           </p>
           <div className="em-actionbar__btns">
-            <button type="submit" name="intent" value="draft" className="btn btn--line" disabled={pending}>
-              {busy === "draft" && <Loader2 size={18} className="em-spin" aria-hidden="true" />}
-              {busy === "draft" ? "Saving…" : draftLabel}
-            </button>
+            {!isRequest && (
+              <button type="submit" name="intent" value="draft" className="btn btn--line" disabled={pending}>
+                {busy === "draft" && <Loader2 size={18} className="em-spin" aria-hidden="true" />}
+                {busy === "draft" ? "Saving…" : draftLabel}
+              </button>
+            )}
             <button type="submit" name="intent" value="submit" className="btn btn--primary" disabled={pending}>
               {busy === "submit" ? <Loader2 size={18} className="em-spin" aria-hidden="true" /> : <Send size={17} aria-hidden="true" />}
               {busy === "submit" ? "Sending…" : submitLabel}
