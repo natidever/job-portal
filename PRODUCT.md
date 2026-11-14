@@ -2,6 +2,8 @@
 
 <!-- impeccable:product-schema 1 -->
 
+> **Superseded in part (2026-11-14):** Righton is becoming an Afriwork-style marketplace. Employers and seekers get email/password accounts, employers post jobs that staff must approve, and guests can still apply. Statements below about "no client logins", "no employer self-posting" and "no seeker accounts" no longer hold. See `../righton-admin/.wayfinder/map.md` and `../righton-admin/GLOSSARY.md`.
+
 ## Platform
 
 web
