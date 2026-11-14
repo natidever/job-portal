@@ -23,10 +23,16 @@ const mono = Red_Hat_Mono({
   display: "swap",
 });
 
+const siteTitle = "Righton · AI-Powered Job Portal for Ethiopia";
+const siteDescription =
+  "The smarter way to hire and get hired. Righton's AI-enhanced job portal matches the right talent to the right roles across Ethiopia, faster.";
+
 export const metadata: Metadata = {
-  title: "Righton · Recruitment and job vacancies in Ethiopia",
-  description:
-    "Righton publishes real vacancies from the companies it recruits for across Ethiopia. Apply in minutes with your CV, no account needed, or send Righton a vacancy to fill.",
+  title: siteTitle,
+  description: siteDescription,
+  // Link previews (Telegram, WhatsApp, LinkedIn, X) read these, not the plain description.
+  openGraph: { title: siteTitle, description: siteDescription, siteName: "Righton", type: "website" },
+  twitter: { card: "summary", title: siteTitle, description: siteDescription },
 };
 
 export const viewport: Viewport = {
