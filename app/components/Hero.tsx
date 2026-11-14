@@ -2,23 +2,22 @@
 
 import { useState } from "react";
 import { ArrowRight, Search } from "lucide-react";
-import { cities, sectors, type Sector } from "../data/jobs";
+import type { Lookup } from "../data/jobs";
 import { isPlaceholder, stats } from "../data/landing";
-import { sectorLabel } from "./sectorMeta";
 import { FlapText } from "./FlapText";
 
 const [placed, clients, shortlist] = stats;
 
-const toJobs = (f: { q?: string; city?: string; sector?: string }) => {
+const toJobs = (f: { q?: string; city?: string; category?: string }) => {
   const p = new URLSearchParams(Object.entries(f).filter(([, v]) => v) as [string, string][]);
   const qs = p.toString();
   return `/jobs${qs ? `?${qs}` : ""}`;
 };
 
-export function Hero() {
+export function Hero({ cities, categories }: { cities: Lookup[]; categories: Lookup[] }) {
   const [q, setQ] = useState("");
   const [city, setCity] = useState("");
-  const [sector, setSector] = useState<Sector | "">("");
+  const [category, setCategory] = useState("");
 
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
@@ -97,7 +96,7 @@ export function Hero() {
         aria-label="Search vacancies"
         onSubmit={(e) => {
           e.preventDefault();
-          window.location.assign(toJobs({ q, city, sector }));
+          window.location.assign(toJobs({ q, city, category }));
         }}
       >
         <label className="kiosk__field kiosk__field--q">
@@ -115,19 +114,19 @@ export function Hero() {
           <select value={city} onChange={(e) => setCity(e.target.value)}>
             <option value="">All cities</option>
             {cities.map((c) => (
-              <option key={c} value={c}>
-                {c}
+              <option key={c.id} value={c.id}>
+                {c.name}
               </option>
             ))}
           </select>
         </label>
         <label className="kiosk__field">
           <span className="kiosk__label">Sector</span>
-          <select value={sector} onChange={(e) => setSector(e.target.value as Sector | "")}>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">All sectors</option>
-            {sectors.map((s) => (
-              <option key={s} value={s}>
-                {sectorLabel[s]}
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
               </option>
             ))}
           </select>

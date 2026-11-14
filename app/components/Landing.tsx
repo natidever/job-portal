@@ -7,8 +7,17 @@ import { TopEmployers } from "./TopEmployers";
 import { Testimonials } from "./Testimonials";
 import { Employers } from "./Employers";
 import { Footer } from "./Footer";
+import type { Job, Lookup } from "../data/jobs";
 
-export function Landing() {
+export function Landing({
+  featured,
+  cities,
+  categories,
+}: {
+  featured: Job[];
+  cities: Lookup[];
+  categories: Lookup[];
+}) {
   return (
     <>
       <a className="skip-link" href="#main">
@@ -17,8 +26,8 @@ export function Landing() {
       <AnnouncementBar />
       <Nav />
       <main id="main">
-        <Hero />
-        <Featured />
+        <Hero cities={cities} categories={categories} />
+        <Featured jobs={featured} />
         <Promotion />
         <TopEmployers />
         <Testimonials />

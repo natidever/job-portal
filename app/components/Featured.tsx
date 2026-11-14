@@ -12,17 +12,27 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import { experienceShort, isSample, jobs, monogram, postedLabel, type Job } from "../data/jobs";
-import { featuredRefs } from "../data/landing";
+import {
+  JOB_TYPE_LABEL,
+  closesLabel,
+  experienceShort,
+  listingsAreSample,
+  monogram,
+  postedLabel,
+  shortCategory,
+  type Job,
+} from "../data/jobs";
 import { contact } from "../data/contact";
-import { sectorLabel } from "./sectorMeta";
 import { useSaved } from "./useSaved";
 
-const featured = featuredRefs
-  .map((r) => jobs.find((j) => j.ref === r))
-  .filter((j): j is Job => Boolean(j));
+/** Card blurb: the post's own description, else its headline requirement and first duty. */
+const summary = (j: Job) => {
+  if (j.description) return j.description;
+  const parts = [j.qualification, j.duties[0]].filter(Boolean);
+  return parts.length ? `${parts.join(". ")}.` : "";
+};
 
-export function Featured() {
+export function Featured({ jobs: featured }: { jobs: Job[] }) {
   const track = useRef<HTMLUListElement>(null);
   const [active, setActive] = useState(0);
   const { saved, toggle } = useSaved();
@@ -61,6 +71,8 @@ export function Featured() {
     el.scrollTo({ left: item.offsetLeft - el.offsetLeft, behavior: reduce ? "auto" : "smooth" });
   };
 
+  if (featured.length === 0) return null;
+
   return (
     <section className="feat" id="featured" aria-labelledby="feat-title">
       <div className="container">
@@ -69,7 +81,7 @@ export function Featured() {
             <h2 id="feat-title" className="h2">
               Featured jobs
             </h2>
-            {isSample && <p className="feat__note">Sample listings for the design preview</p>}
+            {listingsAreSample && <p className="feat__note">Sample listings in a demo database</p>}
           </div>
           <div className="feat__nav">
             <a href="/jobs" className="feat__all">
@@ -126,14 +138,20 @@ export function Featured() {
                     <a href={`/jobs?ref=${j.ref}`}>{j.title}</a>
                   </h3>
                   <p className="fcard__org">
-                    {j.clientType} · {j.city}
+                    {j.company} · {j.city}
                   </p>
                 </div>
               </div>
 
               <p className="fcard__time">
                 <span className={j.closesInDays <= 5 ? "is-soon" : ""}>
-                  <span className="cell">{j.closesInDays}</span> days left
+                  {j.closesInDays >= 2 ? (
+                    <>
+                      <span className="cell">{j.closesInDays}</span> days left
+                    </>
+                  ) : (
+                    `Closes ${closesLabel(j.closesInDays).toLowerCase()}`
+                  )}
                 </span>
                 <span aria-hidden="true" className="fcard__sep" />
                 <span>Posted {postedLabel(j.postedDaysAgo).toLowerCase()}</span>
@@ -142,11 +160,11 @@ export function Featured() {
               <ul className="fcard__tags" aria-label="Job details">
                 <li>
                   <BriefcaseBusiness size={14} aria-hidden="true" />
-                  {sectorLabel[j.sector].split(" & ")[0]}
+                  {shortCategory(j.category)}
                 </li>
                 <li>
                   <Clock size={14} aria-hidden="true" />
-                  {j.type}
+                  {JOB_TYPE_LABEL[j.type]}
                 </li>
                 {exp && (
                   <li>
@@ -161,7 +179,7 @@ export function Featured() {
               </ul>
 
               <p className="fcard__desc">
-                {j.qualification}. {j.duties[0]}.
+                {summary(j)}
               </p>
 
               <div className="fcard__foot">

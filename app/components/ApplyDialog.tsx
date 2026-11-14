@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { FileText, Upload, X } from "lucide-react";
-import { location, type Job } from "../data/jobs";
+import { CircleAlert, FileText, Upload, X } from "lucide-react";
+import { deadlineLabel, location, type Job } from "../data/jobs";
+import { applyToJob } from "../actions/apply";
 
 type Field = "name" | "phone" | "email" | "cv";
 type Errors = Partial<Record<Field, string>>;
 
+// Mirrors the checks in app/actions/apply.ts, which validates again on the server.
 const ET_PHONE = /^(?:\+?251|0)?[79]\d{8}$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CV_TYPES = [".pdf", ".doc", ".docx"];
@@ -20,6 +22,7 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
   const [file, setFile] = useState<File | null>(null);
   const [dragging, setDragging] = useState(false);
   const [phone, setPhone] = useState("");
+  const [notice, setNotice] = useState<{ tone: "duplicate" | "error"; text: string } | null>(null);
 
   useEffect(() => {
     const d = dialogRef.current;
@@ -29,6 +32,7 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
       setErrors({});
       setFile(null);
       setPhone("");
+      setNotice(null);
       formRef.current?.reset();
       d.showModal();
       document.documentElement.classList.add("is-locked");
@@ -59,8 +63,10 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
     setErrors((e) => ({ ...e, cv: undefined }));
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!job || state === "sending") return;
+    setNotice(null);
     const data = new FormData(e.currentTarget);
     const next: Errors = {};
     if (!String(data.get("name") || "").trim()) next.name = "Enter your full name.";
@@ -77,8 +83,24 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
       return;
     }
     setState("sending");
-    // TODO: POST to an API route that stores the CV and notifies Righton staff.
-    window.setTimeout(() => setState("sent"), 1100);
+    data.set("jobId", job.id);
+    data.set("phone", phone);
+    data.set("cv", file!);
+    try {
+      const res = await applyToJob(data);
+      if (res.ok) return setState("sent");
+      setState("idle");
+      if (res.reason === "invalid") {
+        setErrors(res.errors);
+        const firstErr = (Object.keys(res.errors) as Field[])[0];
+        if (firstErr) document.getElementById(firstErr === "cv" ? "cv-input" : `apply-${firstErr}`)?.focus();
+      } else {
+        setNotice({ tone: res.reason === "duplicate" ? "duplicate" : "error", text: res.message });
+      }
+    } catch {
+      setState("idle");
+      setNotice({ tone: "error", text: "We couldn't reach Righton. Check your connection and try again." });
+    }
   };
 
   const err = (key: Field) => ({
@@ -100,7 +122,12 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
         <div className="apply__inner">
           <header className="apply__head">
             <div>
-              <p className="apply__ref"><span className="cell">{job.ref}</span> {location(job)}</p>
+              <p className="apply__ref">
+                <span className="cell">{job.ref}</span>
+                <span>
+                  {location(job)} · Apply by {deadlineLabel(job.deadline)}
+                </span>
+              </p>
               <h2 id="apply-title" className="apply__title">
                 {state === "sent" ? "Application received." : `Apply: ${job.title}`}
               </h2>
@@ -214,7 +241,7 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
                       <FileText size={22} aria-hidden="true" />
                       <span className="drop__main">{file.name}</span>
                       <span className="drop__hint num">
-                        {(file.size / 1024 / 1024).toFixed(1)} MB · tap to replace
+                        {file.size < 100 * 1024 ? `${Math.max(1, Math.round(file.size / 1024))} KB` : `${(file.size / 1024 / 1024).toFixed(1)} MB`} · tap to replace
                       </span>
                     </>
                   ) : (
@@ -230,12 +257,12 @@ export function ApplyDialog({ job, onClose }: { job: Job | null; onClose: () => 
                 {errors.cv && <p id="apply-cv-err" className="field-error">{errors.cv}</p>}
               </div>
 
-              <div className="fieldset">
-                <label htmlFor="apply-note">
-                  Note to the recruiter <span className="optional">optional</span>
-                </label>
-                <textarea id="apply-note" name="note" rows={2} placeholder="Notice period, availability, anything we should know" />
-              </div>
+              {notice && (
+                <div className={`apply__alert is-${notice.tone}`} role="alert">
+                  <CircleAlert size={18} aria-hidden="true" />
+                  <p>{notice.text}</p>
+                </div>
+              )}
 
               <button type="submit" className="btn btn--primary btn--block btn--lg" disabled={state === "sending"}>
                 {state === "sending" ? "Sending application…" : "Send application"}

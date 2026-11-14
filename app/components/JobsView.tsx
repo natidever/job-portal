@@ -1,40 +1,37 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Bookmark, ChevronDown, Search, Send, SlidersHorizontal, X } from "lucide-react";
 import {
-  cities,
-  isSample,
-  jobs,
-  jobTypes,
-  level,
+  JOB_TYPE_LABEL,
+  LEVEL_LABEL,
+  PAGE_SIZE,
+  WORKPLACE_LABEL,
+  filtersToQuery,
+  jobTypeIds,
+  listingsAreSample,
   location,
   monogram,
-  status,
   postedLabel,
-  sectors,
-  skills,
+  shortCategory,
+  status,
+  deadlineLabel,
+  type Filters,
   type Job,
-  type JobType,
-  type Sector,
+  type JobTypeId,
+  type Lookup,
+  type Posted,
+  type Sort,
 } from "../data/jobs";
-import { sectorLabel } from "./sectorMeta";
+import type { Facets, RefLookup } from "@/lib/data/public";
+import { fetchSavedJobs } from "@/lib/data/public-actions";
 import { JobDetail } from "./JobDetail";
 import { ApplyDialog } from "./ApplyDialog";
 import { useSaved } from "./useSaved";
 
-type Sort = "newest" | "closing" | "salary";
-type State = {
-  q: string;
-  sector: Sector | "";
-  types: JobType[];
-  cities: string[];
-  posted: "" | "3" | "7";
-  sort: Sort;
-  tab: "all" | "saved";
-};
-const initial: State = { q: "", sector: "", types: [], cities: [], posted: "", sort: "newest", tab: "all" };
-const PAGE = 6;
+type Tab = "all" | "saved";
+type Missing = Exclude<RefLookup, { state: "open" }>;
 
 const share = (j: Job) => {
   const url = `${window.location.origin}/jobs?ref=${j.ref}`;
@@ -46,45 +43,91 @@ const share = (j: Job) => {
   );
 };
 
-export function JobsView() {
-  const [f, setF] = useState<State>(initial);
-  const [shown, setShown] = useState(PAGE);
+/** Keep the address bar in step with the open drawer without a server round trip. */
+const setRefInUrl = (ref: string | null) => {
+  const url = new URL(window.location.href);
+  if (ref) url.searchParams.set("ref", ref);
+  else url.searchParams.delete("ref");
+  window.history.replaceState(window.history.state, "", url.pathname + url.search);
+};
+
+export function JobsView({
+  filters,
+  page,
+  jobs,
+  total,
+  lookups,
+  facets,
+  opened,
+}: {
+  filters: Filters;
+  page: number;
+  jobs: Job[];
+  total: number;
+  lookups: { categories: Lookup[]; cities: Lookup[] };
+  facets: Facets;
+  opened: RefLookup | null;
+}) {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [f, setF] = useState<Filters>(filters);
+  const [q, setQ] = useState(filters.q);
+  const [tab, setTab] = useState<Tab>("all");
+  const [savedJobs, setSavedJobs] = useState<Job[] | null>(null);
   const [open, setOpen] = useState<Set<string>>(new Set());
-  const [detail, setDetail] = useState<Job | null>(null);
+  const [detail, setDetail] = useState<Job | null>(opened?.state === "open" ? opened.job : null);
+  const [missing, setMissing] = useState<Missing | null>(opened && opened.state !== "open" ? opened : null);
   const [applyJob, setApplyJob] = useState<Job | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const { saved, toggle } = useSaved();
   const drawer = useRef<HTMLDialogElement>(null);
   const sheet = useRef<HTMLDialogElement>(null);
+  const filtersKey = filtersToQuery(filters);
 
-  const set = (p: Partial<State>) => {
-    setF((s) => ({ ...s, ...p }));
-    setShown(PAGE);
-  };
-
-  // Arrivals from the home page: /jobs?q=…&city=…&sector=…&ref=…
+  // Server props are the source of truth after each navigation (back/forward included).
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    const sector = p.get("sector") as Sector | null;
-    const city = p.get("city");
-    setF((s) => ({
-      ...s,
-      q: p.get("q") ?? "",
-      sector: sector && sectors.includes(sector) ? sector : "",
-      cities: city && cities.includes(city) ? [city] : [],
-      sort: (["newest", "closing", "salary"] as const).find((v) => v === p.get("sort")) ?? s.sort,
-    }));
-    const ref = p.get("ref");
-    const j = ref ? jobs.find((x) => x.ref === ref) : undefined;
-    if (j) setDetail(j);
-  }, []);
+    setF(filters);
+    setQ(filters.q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtersKey]);
+
+  const go = (next: Filters, nextPage = 1) => {
+    setF(next);
+    startTransition(() => {
+      router.replace(`/jobs${filtersToQuery(next, { page: nextPage })}`, { scroll: false });
+    });
+  };
+  const set = (p: Partial<Filters>) => go({ ...f, ...p });
+
+  // Search as you type, debounced so each keystroke doesn't hit the server.
+  useEffect(() => {
+    if (q.trim() === f.q.trim()) return;
+    const t = window.setTimeout(() => go({ ...f, q }), 350);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q]);
+
+  // Saved jobs are refs in this browser; fetch the ones still open, under the same filters.
+  const savedKey = [...saved].sort().join(",");
+  useEffect(() => {
+    if (tab !== "saved") return;
+    let live = true;
+    fetchSavedJobs([...saved], f)
+      .then((list) => live && setSavedJobs(list))
+      .catch(() => live && setSavedJobs([]));
+    return () => {
+      live = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, savedKey, filtersKey]);
 
   useEffect(() => {
     const d = drawer.current;
     if (!d) return;
-    if (detail && !d.open) d.showModal();
-    if (!detail && d.open) d.close();
-  }, [detail]);
+    const want = Boolean(detail || missing);
+    if (want && !d.open) d.showModal();
+    if (!want && d.open) d.close();
+  }, [detail, missing]);
 
   useEffect(() => {
     const d = sheet.current;
@@ -93,32 +136,27 @@ export function JobsView() {
     if (!filtersOpen && d.open) d.close();
   }, [filtersOpen]);
 
-  const results = useMemo(() => {
-    const q = f.q.trim().toLowerCase();
-    const list = jobs.filter((j) => {
-      if (f.tab === "saved" && !saved.has(j.ref)) return false;
-      if (f.sector && j.sector !== f.sector) return false;
-      if (f.types.length && !f.types.includes(j.type)) return false;
-      if (f.cities.length && !f.cities.includes(j.city)) return false;
-      if (f.posted && j.postedDaysAgo > Number(f.posted)) return false;
-      if (!q) return true;
-      return [j.title, j.ref, j.city, j.area ?? "", j.clientType, j.sector, ...(skills[j.ref] ?? [])].some((x) =>
-        x.toLowerCase().includes(q)
-      );
-    });
-    const by = {
-      newest: (a: Job, b: Job) => a.postedDaysAgo - b.postedDaysAgo,
-      closing: (a: Job, b: Job) => a.closesInDays - b.closesInDays,
-      salary: (a: Job, b: Job) => b.salaryMin - a.salaryMin,
-    }[f.sort];
-    return list.sort(by);
-  }, [f, saved]);
+  const openDetail = (j: Job) => {
+    setMissing(null);
+    setDetail(j);
+    setRefInUrl(j.ref);
+  };
+  const closeDrawer = () => {
+    setDetail(null);
+    setMissing(null);
+    setRefInUrl(null);
+  };
 
-  const active = (f.sector ? 1 : 0) + f.types.length + f.cities.length + (f.posted ? 1 : 0);
-  const clear = () => set({ sector: "", types: [], cities: [], posted: "" });
+  const results = tab === "saved" ? (savedJobs ?? []) : jobs;
+  const count = tab === "saved" ? results.length : total;
+  const loading = tab === "saved" && savedJobs === null;
+  const active = (f.category ? 1 : 0) + f.types.length + f.cities.length + (f.posted ? 1 : 0);
+  const clear = () => go({ ...f, category: "", types: [], cities: [], posted: "" });
+  const categoryName = lookups.categories.find((c) => c.id === f.category)?.name;
+  const filtered = active > 0 || f.q.trim() !== "";
 
-  const filters = (
-    <FilterPanel f={f} set={set} active={active} clear={clear} />
+  const filterPanel = (scope: string) => (
+    <FilterPanel scope={scope} f={f} set={set} active={active} clear={clear} lookups={lookups} facets={facets} />
   );
 
   return (
@@ -126,38 +164,47 @@ export function JobsView() {
       <div className="container">
         <div className="jobs__head">
           <h1 className="jobs__title">Discover jobs</h1>
-          {isSample && <p className="jobs__note">Sample listings for the design preview</p>}
+          {listingsAreSample && <p className="jobs__note">Sample listings in a demo database</p>}
         </div>
 
-        <label className="jobs__search">
+        <form
+          className="jobs__search"
+          role="search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            go({ ...f, q });
+          }}
+        >
           <Search size={20} aria-hidden="true" />
-          <span className="sr-only">Search jobs</span>
+          <label htmlFor="jobs-q" className="sr-only">
+            Search jobs
+          </label>
           <input
+            id="jobs-q"
             type="search"
-            placeholder="Search by job title, skill, town or Ref"
-            value={f.q}
-            onChange={(e) => set({ q: e.target.value })}
+            placeholder="Job title, keyword, town or Ref"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
             enterKeyHint="search"
+            autoComplete="off"
           />
-        </label>
+        </form>
 
         <div className="jobs__grid">
-          <section className="jlist" aria-label="Job results">
+          <section className={`jlist ${pending ? "is-pending" : ""}`} aria-label="Job results" aria-busy={pending || loading}>
             <div className="jlist__bar">
               <div className="jlist__tabs" role="tablist" aria-label="Which jobs">
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={f.tab === "all"}
-                  onClick={() => set({ tab: "all" })}
-                >
-                  All jobs <span className="cell">{jobs.length}</span>
+                <button type="button" role="tab" aria-selected={tab === "all"} onClick={() => setTab("all")}>
+                  All jobs <span className="cell">{facets.total}</span>
                 </button>
                 <button
                   type="button"
                   role="tab"
-                  aria-selected={f.tab === "saved"}
-                  onClick={() => set({ tab: "saved" })}
+                  aria-selected={tab === "saved"}
+                  onClick={() => {
+                    setSavedJobs(null);
+                    setTab("saved");
+                  }}
                 >
                   Saved <span className="cell">{saved.size}</span>
                 </button>
@@ -180,34 +227,57 @@ export function JobsView() {
             </div>
 
             <p className="jlist__count" aria-live="polite">
-              Showing <strong>{Math.min(shown, results.length)}</strong> of <strong>{results.length}</strong>{" "}
-              {results.length === 1 ? "job" : "jobs"}
-              {f.sector ? ` in ${sectorLabel[f.sector]}` : ""}
+              {loading ? (
+                "Loading your saved jobs…"
+              ) : (
+                <>
+                  Showing <strong>{results.length}</strong> of <strong>{count}</strong> {count === 1 ? "job" : "jobs"}
+                  {categoryName ? ` in ${categoryName}` : ""}
+                  {f.q.trim() ? <> for &ldquo;{f.q.trim()}&rdquo;</> : null}
+                </>
+              )}
             </p>
 
-            {results.length === 0 ? (
+            {loading ? null : results.length === 0 ? (
               <div className="jlist__empty">
                 <p className="jlist__empty-title">
-                  {f.tab === "saved" ? "You have not saved any jobs yet." : "No jobs match these filters."}
+                  {tab === "saved"
+                    ? saved.size
+                      ? "None of your saved jobs match."
+                      : "You have not saved any jobs yet."
+                    : filtered
+                      ? "No open jobs match this search."
+                      : "No open vacancies right now."}
                 </p>
                 <p>
-                  {f.tab === "saved"
-                    ? "Tap the bookmark on any job to keep it here."
-                    : "Try another sector or city, or clear the filters."}
+                  {tab === "saved"
+                    ? saved.size
+                      ? "Saved jobs that have closed drop off this list. Clear the filters to see the rest."
+                      : "Tap the bookmark on any job to keep it here."
+                    : filtered
+                      ? "Try a broader keyword, another sector or city, or clear the filters."
+                      : "New vacancies are published every week. Check back soon."}
                 </p>
-                <button
-                  type="button"
-                  className="btn btn--line"
-                  onClick={() => (f.tab === "saved" ? set({ tab: "all" }) : clear())}
-                >
-                  {f.tab === "saved" ? "Browse all jobs" : "Clear filters"}
-                </button>
+                {(tab === "saved" || filtered) && (
+                  <button
+                    type="button"
+                    className="btn btn--line"
+                    onClick={() => {
+                      if (tab === "saved" && !saved.size) return setTab("all");
+                      setQ("");
+                      go({ ...f, q: "", category: "", types: [], cities: [], posted: "" });
+                    }}
+                  >
+                    {tab === "saved" && !saved.size ? "Browse all jobs" : "Clear search and filters"}
+                  </button>
+                )}
               </div>
             ) : (
               <ul className="jlist__items">
-                {results.slice(0, shown).map((j) => {
+                {results.map((j) => {
                   const more = open.has(j.ref);
                   const isSaved = saved.has(j.ref);
+                  const s = status(j);
                   return (
                     <li key={j.ref} className="jrow">
                       <div className="jrow__top">
@@ -216,21 +286,31 @@ export function JobsView() {
                         </span>
                         <div className="jrow__id">
                           <h2 className="jrow__title">
-                            <button type="button" onClick={() => setDetail(j)}>
+                            <a
+                              href={`/jobs?ref=${j.ref}`}
+                              onClick={(e) => {
+                                if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+                                e.preventDefault();
+                                openDetail(j);
+                              }}
+                            >
                               {j.title}
-                            </button>
+                            </a>
                           </h2>
                           <p className="jrow__org">
-                            <span>{j.clientType}</span>
+                            <span>{j.company}</span>
                             <span>{location(j)}, Ethiopia</span>
                           </p>
                         </div>
                         <div className="jrow__acts">
-                          {status(j).tone !== "open" && (
-                            <span className={`status is-${status(j).tone}`}>{status(j).label}</span>
-                          )}
+                          {s.tone !== "open" && <span className={`status is-${s.tone}`}>{s.label}</span>}
                           <span className="jrow__posted">Posted {postedLabel(j.postedDaysAgo).toLowerCase()}</span>
-                          <button type="button" className="jrow__icon" onClick={() => share(j)} aria-label={`Share ${j.title} on Telegram`}>
+                          <button
+                            type="button"
+                            className="jrow__icon"
+                            onClick={() => share(j)}
+                            aria-label={`Share ${j.title} on Telegram`}
+                          >
                             <Send size={18} aria-hidden="true" />
                           </button>
                           <button
@@ -248,12 +328,24 @@ export function JobsView() {
                       <div className={`jrow__body ${more ? "is-open" : ""}`} id={`body-${j.ref}`}>
                         <h3 className="jrow__label">Job details</h3>
                         <p>
-                          A {j.clientType.toLowerCase()} is hiring {j.positions > 1 ? `${j.positions} people` : "one person"} as{" "}
-                          {j.title} in {j.city}. {j.duties.join(". ")}.
+                          {j.description ||
+                            `${j.company} is hiring ${j.positions > 1 ? `${j.positions} people` : "one person"} as ${j.title} in ${j.city}.`}{" "}
+                          {j.duties.length ? `${j.duties.join(". ")}.` : ""}
                         </p>
-                        <p>
-                          <strong>Qualification:</strong> {j.qualification}. <strong>Experience:</strong> {j.experience}.
-                        </p>
+                        {(j.qualification || j.experience) && (
+                          <p>
+                            {j.qualification && (
+                              <>
+                                <strong>Qualification:</strong> {j.qualification}.{" "}
+                              </>
+                            )}
+                            {j.experience && (
+                              <>
+                                <strong>Experience:</strong> {j.experience}.
+                              </>
+                            )}
+                          </p>
+                        )}
                       </div>
                       <button
                         type="button"
@@ -261,8 +353,8 @@ export function JobsView() {
                         aria-expanded={more}
                         aria-controls={`body-${j.ref}`}
                         onClick={() =>
-                          setOpen((s) => {
-                            const n = new Set(s);
+                          setOpen((prev) => {
+                            const n = new Set(prev);
                             if (n.has(j.ref)) n.delete(j.ref);
                             else n.add(j.ref);
                             return n;
@@ -272,10 +364,12 @@ export function JobsView() {
                         {more ? "Show less" : "Show more"}
                       </button>
 
-                      <ul className="jrow__skills" aria-label="Skills">
-                        {(skills[j.ref] ?? []).map((s) => (
-                          <li key={s}>{s}</li>
-                        ))}
+                      <ul className="jrow__skills" aria-label="Highlights">
+                        <li>{shortCategory(j.category)}</li>
+                        <li>{WORKPLACE_LABEL[j.workplace]}</li>
+                        <li>
+                          {j.positions} {j.positions === 1 ? "position" : "positions"}
+                        </li>
                       </ul>
 
                       <div className="jrow__foot">
@@ -285,24 +379,40 @@ export function JobsView() {
                             <dt>Monthly</dt>
                           </div>
                           <div>
-                            <dd>{level(j)}</dd>
+                            <dd>{LEVEL_LABEL[j.level]}</dd>
                             <dt>Experience level</dt>
                           </div>
                           <div>
-                            <dd>{j.type}</dd>
+                            <dd>{JOB_TYPE_LABEL[j.type]}</dd>
                             <dt>Job type</dt>
                           </div>
                           <div>
-                            <dd className={j.closesInDays <= 5 ? "is-soon" : ""}>
-                              In <span className="cell">{j.closesInDays}</span> days
+                            <dd className={j.closesInDays <= 5 ? "is-soon" : ""} title={`Apply by ${deadlineLabel(j.deadline)}`}>
+                              {j.closesInDays === 0 ? (
+                                "Closes today"
+                              ) : j.closesInDays === 1 ? (
+                                "Tomorrow"
+                              ) : (
+                                <>
+                                  In <span className="cell">{j.closesInDays}</span> days
+                                </>
+                              )}
                             </dd>
                             <dt>Deadline</dt>
                           </div>
                         </dl>
-                        <button type="button" className="btn btn--primary jrow__view" onClick={() => setDetail(j)}>
+                        <a
+                          href={`/jobs?ref=${j.ref}`}
+                          className="btn btn--primary jrow__view"
+                          onClick={(e) => {
+                            if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+                            e.preventDefault();
+                            openDetail(j);
+                          }}
+                        >
                           View details
                           <ArrowRight size={17} aria-hidden="true" />
-                        </button>
+                        </a>
                       </div>
                     </li>
                   );
@@ -310,37 +420,51 @@ export function JobsView() {
               </ul>
             )}
 
-            {results.length > shown && (
-              <button type="button" className="jlist__more" onClick={() => setShown((n) => n + PAGE)}>
-                Show {Math.min(PAGE, results.length - shown)} more jobs
+            {tab === "all" && total > jobs.length && (
+              <button
+                type="button"
+                className="jlist__more"
+                disabled={pending}
+                onClick={() => go(f, page + 1)}
+              >
+                {pending ? "Loading…" : `Show ${Math.min(PAGE_SIZE, total - jobs.length)} more jobs`}
                 <ChevronDown size={18} aria-hidden="true" />
               </button>
             )}
           </section>
 
           <aside className="fpanel fpanel--side" aria-label="Filter jobs">
-            {filters}
+            {filterPanel("side")}
           </aside>
         </div>
       </div>
 
-      <dialog ref={drawer} className="drawer" aria-label={detail ? detail.title : "Job details"} onClose={() => setDetail(null)}>
-        {detail && (
+      <dialog
+        ref={drawer}
+        className="drawer"
+        aria-label={detail ? detail.title : missing ? "Vacancy no longer open" : "Job details"}
+        onClose={closeDrawer}
+      >
+        {(detail || missing) && (
           <>
             <div className="drawer__bar">
-              <span className="cell">{detail.ref}</span>
-              <button type="button" className="drawer__close" onClick={() => setDetail(null)}>
+              <span className="cell">{detail?.ref ?? missing?.ref}</span>
+              <button type="button" className="drawer__close" onClick={closeDrawer}>
                 <X size={20} aria-hidden="true" />
                 <span className="sr-only">Close job details</span>
               </button>
             </div>
-            <JobDetail
-              job={detail}
-              onApply={(j) => {
-                setDetail(null);
-                setApplyJob(j);
-              }}
-            />
+            {detail ? (
+              <JobDetail
+                job={detail}
+                onApply={(j) => {
+                  setDetail(null);
+                  setApplyJob(j);
+                }}
+              />
+            ) : missing ? (
+              <Gone missing={missing} onBrowse={closeDrawer} />
+            ) : null}
           </>
         )}
       </dialog>
@@ -353,31 +477,79 @@ export function JobsView() {
             <span className="sr-only">Close filters</span>
           </button>
         </div>
-        <div className="fsheet__body">{filters}</div>
+        <div className="fsheet__body">{filterPanel("sheet")}</div>
         <div className="fsheet__foot">
           <button type="button" className="btn btn--primary btn--block btn--lg" onClick={() => setFiltersOpen(false)}>
-            Show {results.length} {results.length === 1 ? "job" : "jobs"}
+            {pending ? "Updating…" : `Show ${count} ${count === 1 ? "job" : "jobs"}`}
           </button>
         </div>
       </dialog>
 
-      <ApplyDialog job={applyJob} onClose={() => setApplyJob(null)} />
+      <ApplyDialog
+        job={applyJob}
+        onClose={() => {
+          setApplyJob(null);
+          setRefInUrl(null);
+        }}
+      />
     </main>
   );
 }
 
+/** A shared link to a vacancy that has closed, expired, or never existed. */
+function Gone({ missing, onBrowse }: { missing: Missing; onBrowse: () => void }) {
+  return (
+    <article className="jd" aria-labelledby="jd-gone">
+      <header className="jd__head">
+        <span className="status status--dark is-final">Closed</span>
+        <h3 id="jd-gone" className="jd__title">
+          {missing.state === "closed" ? missing.title : "This vacancy is no longer open"}
+        </h3>
+        <p className="jd__org">
+          {missing.state === "closed"
+            ? "Applications for this vacancy have closed."
+            : `We couldn't find an open vacancy with Ref ${missing.ref}. It may have closed or been taken down.`}
+        </p>
+        <div className="jd__actions">
+          <button type="button" className="btn btn--white btn--lg" onClick={onBrowse}>
+            Browse open jobs
+            <ArrowRight size={18} aria-hidden="true" />
+          </button>
+        </div>
+      </header>
+      <div className="jd__body">
+        <section className="jd__sec">
+          <h4>What to do next</h4>
+          <p>
+            Every vacancy on Righton stays up until its deadline. Similar roles open often: search the board, or save
+            jobs you like so you can come back before they close.
+          </p>
+        </section>
+      </div>
+    </article>
+  );
+}
+
 function FilterPanel({
+  scope,
   f,
   set,
   active,
   clear,
+  lookups,
+  facets,
 }: {
-  f: State;
-  set: (p: Partial<State>) => void;
+  scope: string;
+  f: Filters;
+  set: (p: Partial<Filters>) => void;
   active: number;
   clear: () => void;
+  lookups: { categories: Lookup[]; cities: Lookup[] };
+  facets: Facets;
 }) {
   const flip = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
+  const cities = lookups.cities.filter((c) => (facets.byCity[c.id] ?? 0) > 0 || f.cities.includes(c.id));
+  const types = jobTypeIds.filter((t) => (facets.byType[t] ?? 0) > 0 || f.types.includes(t));
   return (
     <div className="fpanel">
       <div className="fpanel__head">
@@ -392,11 +564,12 @@ function FilterPanel({
       <Group title="Sector">
         <label className="fselect">
           <span className="sr-only">Sector</span>
-          <select value={f.sector} onChange={(e) => set({ sector: e.target.value as Sector | "" })}>
+          <select value={f.category} onChange={(e) => set({ category: e.target.value })}>
             <option value="">All sectors</option>
-            {sectors.map((s) => (
-              <option key={s} value={s}>
-                {sectorLabel[s]}
+            {lookups.categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+                {facets.byCategory[c.id] ? ` (${facets.byCategory[c.id]})` : ""}
               </option>
             ))}
           </select>
@@ -405,37 +578,47 @@ function FilterPanel({
       </Group>
 
       <Group title="Job type">
-        {jobTypes.map((t) => (
+        {types.map((t) => (
           <label key={t} className="fcheck">
-            <input type="checkbox" checked={f.types.includes(t)} onChange={() => set({ types: flip(f.types, t) })} />
-            <span>{t}</span>
-            <span className="fcheck__n cell">{jobs.filter((j) => j.type === t).length}</span>
+            <input
+              type="checkbox"
+              checked={f.types.includes(t)}
+              onChange={() => set({ types: flip<JobTypeId>(f.types, t) })}
+            />
+            <span>{JOB_TYPE_LABEL[t]}</span>
+            <span className="fcheck__n cell">{facets.byType[t] ?? 0}</span>
           </label>
         ))}
       </Group>
 
       <Group title="City">
         {cities.map((c) => (
-          <label key={c} className="fcheck">
-            <input type="checkbox" checked={f.cities.includes(c)} onChange={() => set({ cities: flip(f.cities, c) })} />
-            <span>{c}</span>
-            <span className="fcheck__n cell">{jobs.filter((j) => j.city === c).length}</span>
+          <label key={c.id} className="fcheck">
+            <input
+              type="checkbox"
+              checked={f.cities.includes(c.id)}
+              onChange={() => set({ cities: flip(f.cities, c.id) })}
+            />
+            <span>{c.name}</span>
+            <span className="fcheck__n cell">{facets.byCity[c.id] ?? 0}</span>
           </label>
         ))}
       </Group>
 
       <Group title="Date posted">
-        {[
-          ["", "Any time"],
-          ["3", "Last 3 days"],
-          ["7", "Last 7 days"],
-        ].map(([v, l]) => (
+        {(
+          [
+            ["", "Any time"],
+            ["3", "Last 3 days"],
+            ["7", "Last 7 days"],
+          ] as const
+        ).map(([v, l]) => (
           <label key={v} className="fcheck">
             <input
               type="radio"
-              name={`posted-${f.tab}`}
+              name={`posted-${scope}`}
               checked={f.posted === v}
-              onChange={() => set({ posted: v as State["posted"] })}
+              onChange={() => set({ posted: v as Posted })}
             />
             <span>{l}</span>
           </label>

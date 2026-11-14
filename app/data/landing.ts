@@ -90,9 +90,7 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
-
-/** Vacancies pinned to the home page carousel (sample data until real listings exist). */
-export const featuredRefs = ["RT-0142", "RT-0137", "RT-0148", "RT-0141", "RT-0135", "RT-0128"];
+// Featured vacancies come from the database: published posts staff flag with is_featured.
 
 export const benefits = [
   {
